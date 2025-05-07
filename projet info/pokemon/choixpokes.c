@@ -1,15 +1,27 @@
-#include "listepoke.c"
+#include "structure.h"
 #include "fonction.h"
 #include "affichage.h"
+#include "choixpokes.h"
 
-int afficherPoke(char* menu[], int tailleMenu, int numpoke, Poke* Pokemon[18]) { 
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <termios.h>
+#include <unistd.h>
+#include <time.h>
+
+#define UP    65  
+#define DOWN  66  
+#define ENTER 10 
+
+int afficherPoke(char* menu[], int tailleMenu, int numpoke, Poke* Pokemon[18]) { // permet afficher liste pokemon ainsi que de voir le pokemon selectionné
     int choix = 0;  
     int touche;
     while (1) { 
-        if(numpoke==1) {
-            afficherTitrej1_1(); // affichage choix j1 si c'est a lui de choisir
+        if(numpoke==1) { // affiche un titre diffferent selon le joueur qui choisi son pokemon
+            afficherTitrej1_1(); 
         } else if(numpoke==2) {
-            afficherTitrej1_2(); // affichage j2 sii c est a lui e choisir
+            afficherTitrej1_2(); 
         } else if(numpoke==3) {
             afficherTitrej1_3();
         } else if(numpoke==4) {
@@ -21,29 +33,29 @@ int afficherPoke(char* menu[], int tailleMenu, int numpoke, Poke* Pokemon[18]) {
         }
         for (int i = 0; i < tailleMenu; i++) {
             if (i == choix) {
-                printf("                                               > %s <\n", menu[i]);
+                printf("                                               > %s <\n", menu[i]); // pour visualiser le pokemon selectionné
             } else {
-                printf("                                                %s\n", menu[i]);  
+                printf("                                                %s\n", menu[i]);  // affiche le nom des autres pokemon
             }
         }
-        printf("\n%s", Pokemon[choix]->description);
+        printf("\n%s", Pokemon[choix]->description); // affiche une description du pokemon selectionné
         for(int i=0; i<13 ; i++) {
-            printf("\n                     %s", Pokemon[choix]->repgraph[i]);
+            printf("\n                     %s", Pokemon[choix]->repgraph[i]); // affiche la rep graphique du pokemon selectionné
         }
 
-        touche = getch(); 
+        touche = getch(); // prend une touche rentré par utilisateur
 
         if (touche == '\033') {  
             getch();  
             switch (getch()) {
                 case 'A':  
-                    if (choix > 0) choix--;  
+                    if (choix > 0) choix--;  // fleche du bas sauf tout en bas
                     break;
                 case 'B':  
-                    if (choix < tailleMenu - 1) choix++;  
+                    if (choix < tailleMenu - 1) choix++;  // flechhe du haut sauf tout en haut 
                     break;
             }
-        system("clear");
+        system("clear"); // supprime pour pas que s'affiche a la suite les menus
         } else if (touche == ENTER) { 
             break;
         }
@@ -127,7 +139,7 @@ int choixpokeordi_difdifficile(int typejoueur) { // donne a l'ordi un pokemon qu
 
 
 
-Poke* copierPokemon(Poke* original) {
+Poke* copierPokemon(Poke* original) { // copie le joueur de sorte qu'il ne soit pas lier a la structure de base sinon tout la structure changé en cas d'attaque pour j1 et j2
     Poke* copie = malloc(sizeof(Poke));
     if (!copie) {
         perror("Erreur d'allocation de mémoire");
@@ -144,6 +156,7 @@ Poke* copierPokemon(Poke* original) {
     copie->agi = original->agi;
     copie->defmax = original->defmax;
     copie->defactuel = original->defactuel;
+    copie->statut= original->statut;
 
     // Copie du graphisme si besoin
     for (int i = 0; i < 13; i++) {
@@ -162,6 +175,13 @@ Poke* copierPokemon(Poke* original) {
     // Copie de la description
     copie->description = strdup(original->description);
 
+    copie->attspe = malloc(sizeof(Attaquespecial));
+    copie->attspe->nom=strdup(original->attspe->nom);
+    copie->attspe->fonction=original->attspe->fonction;
+    copie->attspe->effet_spe_tempo=original->attspe->effet_spe_tempo;
+    copie->attspe->tempsrecharge=original->attspe->tempsrecharge;
+    copie->attspe->tempsrechargeact=original->attspe->tempsrechargeact;
+
     return copie;
 }
 
@@ -175,7 +195,7 @@ Poke** choixpokes(int choixmenu) { //fonction principale
 
     Poke* pokenul = malloc(sizeof(Pokemon));
 
-    pokenul->name = "Null     ";
+    pokenul->name = "Null     "; // creation structure nul pour mettre si 1vs1 ou 2vs2 pour combler equipe
     pokenul->type = 0;
     pokenul->pvmax = 100;
     pokenul->pvactuel = 0;
@@ -185,8 +205,8 @@ Poke** choixpokes(int choixmenu) { //fonction principale
     pokenul->agi = 0;
     pokenul->defmax = 0;
     pokenul->defactuel = pokenul->defmax;
+    pokenul->statut=0;
 
-    // Graphique du Pokémon
     char* graphnul[13] = {
         "", "", "", "", "", "", "", "", "", "", "", "", ""
     };
@@ -205,23 +225,26 @@ Poke** choixpokes(int choixmenu) { //fonction principale
         pokenul->attaque[i]->fonction = 0;
     }
 
+    pokenul->attspe=malloc(sizeof(Attaquespecial));
+    pokenul->attspe->nom="null  ";
+    pokenul->attspe->fonction=0;
+    pokenul->attspe->effet_spe_tempo=0;
+    pokenul->attspe->tempsrecharge=0;
+    pokenul->attspe->tempsrechargeact=0;
 
 
 
 
-
-
-
-    for(int i=0; i<18 ; i++) {
+    for(int i=0; i<18 ; i++) { // remplis liste poke
         Pokemon[i]=listepoke(i);
     }
-    char* menu[18] = {"Evoli", "Miaouss", "Porygon","Aspicot","Mystherbe","Bbulbizarre","Onix","Taupiqueur","Racaillou","Pikachu","Magneti","Electrode","Carapuce","Psykokwak","Wailmer","Flamiaou","Funecire","Chartor"}; //diferent element du menu
-    Poke** joueurs = malloc(sizeof(Poke*) * 6);
+    char* menu[18] = {"Evoli", "Miaouss", "Porygon","Aspicot","Mystherbe","Bulbizarre","Onix","Taupiqueur","Racaillou","Pikachu","Magneti","Electrode","Carapuce","Psykokwak","Wailmer","Flamiaou","Funecire","Chartor"}; //diferent element du menu
+    Poke** joueurs = malloc(sizeof(Poke*) * 6); // alloue 6 espace pour taille des deux equipe max combiné
         for(int i=0 ; i<6 ; i++) {
             joueurs[i] = malloc(sizeof(Poke));
         }
-    if (choixmenu==10 || choixmenu==13 || choixmenu==16 || choixmenu==19) {
-        if(choixmenu==10) {
+    if (choixmenu==10 || choixmenu==13 || choixmenu==16 || choixmenu==19) { // si choix 1vs1
+        if(choixmenu==10) { // pour j vs j
             for(int i=0 ; i<4 ; i++) {
                 if (i == 1 || i == 2) continue;
                 choixpoke = afficherPoke(menu, 18, 1+i, Pokemon); 
@@ -232,7 +255,7 @@ Poke** choixpokes(int choixmenu) { //fonction principale
             joueurs[4]=pokenul;
             joueurs[5]=pokenul;
             return joueurs;
-        } else if (choixmenu==13) {
+        } else if (choixmenu==13) { // pour j vs ordi simple
             choixpoke = afficherPoke(menu, 18, 1, Pokemon); 
             joueurs[0]=copierPokemon(Pokemon[choixpoke]);
             choixordi=choixpokeordi_difsimple(joueurs[0]->type);
@@ -242,7 +265,7 @@ Poke** choixpokes(int choixmenu) { //fonction principale
             joueurs[4]=pokenul;
             joueurs[5]=pokenul;
             return joueurs;
-        } else if (choixmenu==16) {
+        } else if (choixmenu==16) { //pour j vs ordi moyen
             choixpoke = afficherPoke(menu, 18, 1, Pokemon); 
             joueurs[0]=copierPokemon(Pokemon[choixpoke]); 
             choixordi=choixpokeordi_difmoyen(joueurs[0]->type);
@@ -252,7 +275,7 @@ Poke** choixpokes(int choixmenu) { //fonction principale
             joueurs[4]=pokenul;
             joueurs[5]=pokenul;
             return joueurs;
-        } else if(choixmenu==19) {
+        } else if(choixmenu==19) { // pour j vs ordi difficile
             choixpoke = afficherPoke(menu, 18, 1, Pokemon); 
             joueurs[0]=copierPokemon(Pokemon[choixpoke]);  
             choixordi=choixpokeordi_difdifficile(joueurs[0]->type);
@@ -263,8 +286,8 @@ Poke** choixpokes(int choixmenu) { //fonction principale
             joueurs[5]=pokenul;
             return joueurs;
         }
-    } else if (choixmenu==11 || choixmenu==14 || choixmenu==17 || choixmenu==20) {
-        if(choixmenu==11) {
+    } else if (choixmenu==11 || choixmenu==14 || choixmenu==17 || choixmenu==20) { // si choix 2vs2
+        if(choixmenu==11) { // si j vs j
             for(int i=0 ; i<5 ; i++) {
                 if (i == 2 ) continue;
                 choixpoke = afficherPoke(menu, 18, 1+i, Pokemon); 
@@ -273,7 +296,7 @@ Poke** choixpokes(int choixmenu) { //fonction principale
             joueurs[2]=pokenul;
             joueurs[5]=pokenul;
             return joueurs;
-        } else if (choixmenu==14) {
+        } else if (choixmenu==14) { // si j vs ordi simple
             for(int i=0; i<2 ; i++) {
                 choixpoke = afficherPoke(menu, 18, 1+i, Pokemon); 
                 joueurs[i]=copierPokemon(Pokemon[choixpoke]); 
@@ -285,7 +308,7 @@ Poke** choixpokes(int choixmenu) { //fonction principale
             joueurs[2]=pokenul;
             joueurs[5]=pokenul;
             return joueurs;
-        } else if (choixmenu==17) {
+        } else if (choixmenu==17) { // si j vs ordi moyen
             for(int i=0; i<2 ; i++) {
                 choixpoke = afficherPoke(menu, 18, 1+i, Pokemon); 
                 joueurs[i]=copierPokemon(Pokemon[choixpoke]); 
@@ -297,7 +320,7 @@ Poke** choixpokes(int choixmenu) { //fonction principale
             joueurs[2]=pokenul;
             joueurs[5]=pokenul;
             return joueurs;
-        } else if(choixmenu==20) {
+        } else if(choixmenu==20) { //si j vs ordi difficile
             for(int i=0; i<2 ; i++) {
                 choixpoke = afficherPoke(menu, 18, 1+i, Pokemon); 
                 joueurs[i]=copierPokemon(Pokemon[choixpoke]); 
@@ -310,14 +333,14 @@ Poke** choixpokes(int choixmenu) { //fonction principale
             joueurs[5]=pokenul;
             return joueurs;
         }
-    } else {
-        if(choixmenu==12) {
+    } else { // si choix 3vs3
+        if(choixmenu==12) { // si j vs j
             for(int i=0 ; i<6 ; i++) {
                 choixpoke = afficherPoke(menu, 18, 1+i, Pokemon); 
                 joueurs[i]=copierPokemon(Pokemon[choixpoke]); 
             }
             return joueurs;
-        } else if (choixmenu==15) {
+        } else if (choixmenu==15) { // si j vs ordi simple
             for(int i=0; i<3 ; i++) {
                 choixpoke = afficherPoke(menu, 18, 1+i, Pokemon); 
                 joueurs[i]=copierPokemon(Pokemon[choixpoke]);  
@@ -327,7 +350,7 @@ Poke** choixpokes(int choixmenu) { //fonction principale
                 joueurs[j+3]=copierPokemon(Pokemon[choixordi]); 
             }
             return joueurs;
-        } else if (choixmenu==18) {
+        } else if (choixmenu==18) { // si j vs ordi moyen
             for(int i=0; i<3 ; i++) {
                 choixpoke = afficherPoke(menu, 18, 1+i, Pokemon); 
                 joueurs[i]= copierPokemon(Pokemon[choixpoke]); 
@@ -337,7 +360,7 @@ Poke** choixpokes(int choixmenu) { //fonction principale
                 joueurs[j+3]= copierPokemon(Pokemon[choixordi]); 
             }
             return joueurs;
-        } else if(choixmenu==21) {
+        } else if(choixmenu==21) { // si j vs ordi difficile
             for(int i=0; i<3 ; i++) {
                 choixpoke = afficherPoke(menu, 18, 1+i, Pokemon); 
                 joueurs[i]=copierPokemon(Pokemon[choixpoke]); 

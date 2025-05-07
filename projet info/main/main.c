@@ -1,17 +1,32 @@
-#include "../demarrage/demar.c"
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <termios.h>
+#include <unistd.h>
+#include <time.h>
+
+
+#define UP    65  
+#define DOWN  66  
+#define ENTER 10 
+
 #include "../pokemon/structure.h"
-#include "../pokemon/choixpokes.c"
-#include "../combat/combat.c"
-
-    int main() {
-        int choixmenu=menu(); // on choisit le type de combat qu on veut
-        Poke** joueurs=choixpokes(choixmenu); // on choisit ces poke et l'ordi aussi si j vs ordi
-        combat(choixmenu, joueurs);
-        return 0;
-    }
+#include "../pokemon/fonction.h"
+#include "../pokemon/affichage.h"
+#include "../pokemon/choixpokes.h"
+#include "../demarrage/demar.h"
+#include "../combat/combat.h"
 
 
+int main() {
+    maximizeTerminal(); // met le terminal en grand ecran si ce n'est pas deja le cas
+    int choixmenu=menu(); // on choisit le type de combat qu on veut
+    Poke** joueurs=choixpokes(choixmenu); // on choisit ces poke et l'ordi aussi si j vs ordi
+    combat(choixmenu, joueurs); // lance combat
+    return 0;
+}
 
 
-    // probleme a regler si deux meme pokemon selectionner les pv des deux baisse si il y a une attaque 
-    // probleme pour les fonctions 2vs2 et 1vs1
+       // rajouter une attaque spéciale
+       // bilan ecrit rep travail
+       // commenté

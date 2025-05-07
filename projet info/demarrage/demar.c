@@ -1,6 +1,7 @@
 #include "../pokemon/fonction.h"
 #include "../pokemon/affichage.h"
 #include "../pokemon/structure.h"
+#include "demar.h"
 
 
 
@@ -12,7 +13,7 @@ int afficherMenu(char* menu[], int menu_n) { //permet de se deplacer dans le men
     while(menu[tailleMenu]!=NULL) {
         tailleMenu+=1;
     }
-    while (1) { //boucle infini tant que touche diiferent de entrée
+    while (1) { //boucle infini tant que touche diferent de entrée
         system("clear");
         if(menu_n==0) {
             afficherMenu0();
@@ -103,18 +104,18 @@ int menu() { //fonction principale
             choix_x=afficherMenu(menus[3], 3); // afiche le dernier menu
             if(choix_x==0) {
                 system("clear");
-                return choix;
+                return choix; // pour 1vs1
             } else if(choix_x==1) {
                 system("clear");
-                return choix+=1;
+                return choix+=1; // pour 2vs2
             } else if(choix_x==2) {
                 system("clear");
-                return choix+=2;
+                return choix+=2; // pour 3vs3
             } else {
                 if(choix==10) {
-                    choix=2;
+                    choix=2; // retourne a choix mode
                 } else {
-                    choix=3;
+                    choix=3; // retourne a choix difficulté
                 }
             }
         }
