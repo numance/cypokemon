@@ -8,14 +8,13 @@
 int afficherMenu(char* menu[], int menu_n) { //permet de se deplacer dans le menu pour choisir notre choix
     int choix = 0;  //l'option sélectionnée à la base
     int touche;
-    int aff=0;
     int tailleMenu=0;
     while(menu[tailleMenu]!=NULL) {
         tailleMenu+=1;
     }
     while (1) { //boucle infini tant que touche diferent de entrée
         system("clear");
-        if(menu_n==0) {
+        if(menu_n==0) { // affiche le menu voulu en fonction de menu_n
             afficherMenu0();
         } else if(menu_n==1) {
             afficherMenu1();
@@ -58,8 +57,7 @@ int afficherMenu(char* menu[], int menu_n) { //permet de se deplacer dans le men
 int menu() { //fonction principale
     
     system("clear");
-    int i=0;
-    char* menus[4][5] = {
+    char* menus[4][5] = { // les différents menu de l'accueil
     {"Jouer", "Aide/Info", "Quitter", NULL},        
     {"Joueur vs Joueur", "Joueur vs Ordinateur","Retour", NULL},                  
     {"Simple", "Moyen","Difficile","Retour", NULL},  
@@ -85,7 +83,7 @@ int menu() { //fonction principale
             if(choix_x==0) {
                 choix=10; // pour j vs j compris entre 10 et 12 
             } else if(choix_x==1) {
-                choix=3; // lance choix difficulte 
+                choix=3; // lance choix difficulte pour j vs ordi
             } else {
                 choix=0; // retourne 1er menu
             }
@@ -100,21 +98,21 @@ int menu() { //fonction principale
             } else {
                 choix=2; // retourne 2eme menu
             }
-        } else if(choix==10 || choix==13 || choix==16 || choix==19) {
+        } else if(choix==10 || choix==13 || choix==16 || choix==19) { // plus qu' a choisir le nombre de poke par equipe
             choix_x=afficherMenu(menus[3], 3); // afiche le dernier menu
             if(choix_x==0) {
                 system("clear");
-                return choix; // pour 1vs1
+                return choix; // pour 1vs1 conserve le nombre
             } else if(choix_x==1) {
                 system("clear");
-                return choix+=1; // pour 2vs2
+                return choix+=1; // pour 2vs2 conserve et ajoute 1
             } else if(choix_x==2) {
                 system("clear");
-                return choix+=2; // pour 3vs3
+                return choix+=2; // pour 3vs3 conserve et ajoute 2
             } else {
-                if(choix==10) {
+                if(choix==10) { // si avant dans choix j vs ordi ou j vs j
                     choix=2; // retourne a choix mode
-                } else {
+                } else { // si avant dans choix difficulté
                     choix=3; // retourne a choix difficulté
                 }
             }

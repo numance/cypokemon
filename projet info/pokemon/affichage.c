@@ -12,53 +12,53 @@
 void aide() { // affiche menu aide et infos pour jouer
     system("clear");
     printf("Bonjour, et bienvenue dans le jeu CY Pokémon ! Si vous vous trouvez ici, c'est probablement que vous ne connaissez pas\n"
-"les règles de notre jeu. Ne vous inquiétez pas, vous trouverez ici tout le nécessaire pour en devenir un\n"
-"professionnel, point par point.\n\n"
+    "les règles de notre jeu. Ne vous inquiétez pas, vous trouverez ici tout le nécessaire pour en devenir un\n"
+    "professionnel, point par point.\n\n"
 
-"Tout d'abord, lorsque vous sélectionnez 'Jouer', on vous demandera si vous préférez jouer avec un ami qui est avec\n"
-"vous ou bien contre un ordinateur (dans ce cas, on vous demandera de choisir un niveau de difficulté). Enfin, on vous\n"
-"demandera le nombre de Pokémon combattants : il y a 3 possibilités : 1vs1, 2vs2 ou 3vs3.\n\n"
+    "Tout d'abord, lorsque vous sélectionnez 'Jouer', on vous demandera si vous préférez jouer avec un ami qui est avec\n"
+    "vous ou bien contre un ordinateur (dans ce cas, on vous demandera de choisir un niveau de difficulté). Enfin, on vous\n"
+    "demandera le nombre de Pokémon combattants : il y a 3 possibilités : 1vs1, 2vs2 ou 3vs3.\n\n"
 
-"Ensuite, vous devrez constituer une équipe en fonction du nombre de combattants que vous avez choisi : 1, 2 ou 3.\n"
-"Sachez qu'il existe des faiblesses et des résistances pour la défense, ainsi que des attaques peu ou très efficaces\n"
-"entre certains types. Voici les interactions :\n\n"
+    "Ensuite, vous devrez constituer une équipe en fonction du nombre de combattants que vous avez choisi : 1, 2 ou 3.\n"
+    "Sachez qu'il existe des faiblesses et des résistances pour la défense, ainsi que des attaques peu ou très efficaces\n"
+    "entre certains types. Voici les interactions :\n\n"
 
-"Attaque de type Sol\n"
-"   -Elle est super efficace contre les Pokémon de type Électrique.\n"
-"   -Elle est peu efficace contre les Pokémon de type Plante.\n\n"
-"Attaque de type Électrique\n"
-"   -Elle est super efficace contre les Pokémon de type Eau.\n"
-"   -Elle est inefficace contre les Pokémon de type Sol.\n"
-"   -Elle est peu efficace contre les Pokémon de type Plante.\n\n"
-"Attaque de type Feu\n"
-"   -Elle est super efficace contre les Pokémon de type Plante.\n"
-"   -Elle est peu efficace contre les Pokémon de type Eau.\n\n"
-"Attaque de type Eau"
-"   -Elle est super efficace contre les Pokémon de type Feu.\n"
-"   -Elle est super efficace contre les Pokémon de type Sol.\n"
-"   -Elle est peu efficace contre les Pokémon de type Plante.\n\n"
-"Attaque de type Plante\n"
-"   -Elle est super efficace contre les Pokémon de type Sol.\n"
-"   -Elle est super efficace contre les Pokémon de type Eau.\n"
-"   -Elle est peu efficace contre les Pokémon de type Feu.\n\n"
+    "Attaque de type Sol\n"
+    "   -Elle est super efficace contre les Pokémon de type Électrique.\n"
+    "   -Elle est peu efficace contre les Pokémon de type Plante.\n\n"
+    "Attaque de type Électrique\n"
+    "   -Elle est super efficace contre les Pokémon de type Eau.\n"
+    "   -Elle est inefficace contre les Pokémon de type Sol.\n"
+    "   -Elle est peu efficace contre les Pokémon de type Plante.\n\n"
+    "Attaque de type Feu\n"
+    "   -Elle est super efficace contre les Pokémon de type Plante.\n"
+    "   -Elle est peu efficace contre les Pokémon de type Eau.\n\n"
+    "Attaque de type Eau"
+    "   -Elle est super efficace contre les Pokémon de type Feu.\n"
+    "   -Elle est super efficace contre les Pokémon de type Sol.\n"
+    "   -Elle est peu efficace contre les Pokémon de type Plante.\n\n"
+    "Attaque de type Plante\n"
+    "   -Elle est super efficace contre les Pokémon de type Sol.\n"
+    "   -Elle est super efficace contre les Pokémon de type Eau.\n"
+    "   -Elle est peu efficace contre les Pokémon de type Feu.\n\n"
 
-"Il est conseillé, si vous faites un combat avec plusieurs combattants, de prendre des Pokémon de types différents\n"
-"afin de varier, mieux encaisser les coups et frapper plus fort si vous avez un avantage. Cela permet aussi d'éviter\n"
-"d'être désavantagé face à un Pokémon adverse.\n\n"
+    "Il est conseillé, si vous faites un combat avec plusieurs combattants, de prendre des Pokémon de types différents\n"
+    "afin de varier, mieux encaisser les coups et frapper plus fort si vous avez un avantage. Cela permet aussi d'éviter\n"
+    "d'être désavantagé face à un Pokémon adverse.\n\n"
 
-"Maintenant, entrons dans le vif du sujet : le combat. Chaque joueur (Joueur 1 et Joueur 2, ou Joueur et Ordinateur)\n"
-"détermine son action pour le tour. Ensuite, les attaques sont lancées : le Pokémon le plus rapide attaque en premier.\n"
-"Dans de rares cas (moins de 5 pourcent de chance sauf contre ordinateur complique qui a plus de chance), une attaque peut"
-"être esquivée.\n\n"
+    "Maintenant, entrons dans le vif du sujet : le combat. Chaque joueur (Joueur 1 et Joueur 2, ou Joueur et Ordinateur)\n"
+    "détermine son action pour le tour. Ensuite, les attaques sont lancées : le Pokémon le plus rapide attaque en premier.\n"
+    "Dans de rares cas (moins de 5 pourcent de chance sauf contre ordinateur complique qui a plus de chance), une attaque peut"
+    "être esquivée.\n\n"
 
-"Lorsqu'un Pokémon n'a plus de points de vie, il est mis K.O. À chaque tour, vous pouvez choisir d'attaquer ou\n"
-"de changer de Pokémon. Si vous changez, vous ne pourrez pas attaquer ce tour-là. Quand tous les Pokémon d'une équipe\n"
-"sont K.O., le combat est terminé et le gagnant est annoncé.\n\n"
+    "Lorsqu'un Pokémon n'a plus de points de vie, il est mis K.O. À chaque tour, vous pouvez choisir d'attaquer ou\n"
+    "de changer de Pokémon. Si vous changez, vous ne pourrez pas attaquer ce tour-là. Quand tous les Pokémon d'une équipe\n"
+    "sont K.O., le combat est terminé et le gagnant est annoncé.\n\n"
 
-"Si vous perdez, vous pouvez toujours retenter votre chance pour devenir un grand champion, battre tous vos amis\n"
-"et même vaincre l'ordinateur en mode difficile.\n\n"
+    "Si vous perdez, vous pouvez toujours retenter votre chance pour devenir un grand champion, battre tous vos amis\n"
+    "et même vaincre l'ordinateur en mode difficile.\n\n"
 
-"Pour retourner à l'accueil : appuyez sur entrée\n");
+    "Pour retourner à l'accueil : appuyez sur entrée\n");
     int touche; // quand appuie sur la touche entréé retourne sur
     while(1) {
         touche = getch();
@@ -206,12 +206,4 @@ void gagnantj2() { // affiche joueur 2 a gagné
     printf("                          \\ \\_____\\  \\ \\_\\ \\_\\  \\ \\_____\\  \\ \\_\\\\\"\\_\\  \\ \\_____\\                      \n");
     printf("                           \\/_____/   \\/_/\\/_/   \\/_____/   \\/_/ \\/_/   \\/_____/                      \n");
     sleep(4);
-}
-
-void egalite() { // affiche egalite
-    printf("     ______     ______     ______     __         __     ______   ______       \n");
-    printf("    /\\  ___\\   /\\  ___\\   /\\  __ \\   /\\ \\       /\\ \\   /\\__  _\\ /\\  ___\\      \n");
-    printf("    \\ \\  __\\   \\ \\ \\__ \\  \\ \\  __ \\  \\ \\ \\____  \\ \\ \\  \\/_/\\ \\/ \\ \\  __\\      \n");
-    printf("     \\ \\_____\\  \\ \\_____\\  \\ \\_\\ \\_\\  \\ \\_____\\  \\ \\_\\    \\ \\_\\  \\ \\_____\\    \n");
-    printf("      \\/_____/   \\/_____/   \\/_/\\/_/   \\/_____/   \\/_/     \\/_/   \\/_____/    \n");
 }

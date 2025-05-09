@@ -19,13 +19,9 @@ void maximizeTerminal();
 
 int getch();
 
-void ouvrirFichier(const char* programme);
+void desactiverSaisie();
 
-void desactivesaisi();
-
-void activesaisi();
-
-void viderBuffer();
+void activerSaisie();
 
 
 #endif

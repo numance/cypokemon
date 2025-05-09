@@ -7,6 +7,8 @@
 #include <unistd.h>
 #include <time.h>
 
+struct termios oldt, newt;
+
 
 #define UP    65  
 #define DOWN  66  
@@ -30,28 +32,20 @@ int getch() {
     return ch; // retourne la touche
 }
 
-void ouvrirFichier(const char* programme) { //permet d'ouvrir le fichier voulu  
-    char commande[256];  //taille suffisamment grand pour contenir le chemin du programme 
-    snprintf(commande, sizeof(commande), "./%s", programme); //defini le chemin vers le fichier a executer
-    int status = system(commande); //permet d'executer le fichier exe voulu contenu dans le tab commande
+
+void desactiverSaisie() {
+    struct termios t;
+    tcgetattr(STDIN_FILENO, &t);
+    t.c_lflag &= ~(ICANON | ECHO);  // Désactive saisie ligne et affichage
+    tcsetattr(STDIN_FILENO, TCSANOW, &t);
 }
 
-void desactivesaisi() { //empeche de rentrer des caracteres
-    struct termios attribut;
-    tcgetattr(STDIN_FILENO, &attribut);
-    attribut.c_lflag &= ~(ICANON | ECHO); // Désactive saisie ligne et affichage
-    tcsetattr(STDIN_FILENO, TCSANOW, &attribut);
-}
-
-void activesaisi() { // permet de remettre la saisi de caractere
-    struct termios attribut;
-    tcgetattr(STDIN_FILENO, &attribut);
-    attribut.c_lflag |= (ICANON | ECHO); // Réactive saisie ligne et affichage
-    tcsetattr(STDIN_FILENO, TCSANOW, &attribut);
+void activerSaisie() {
+    struct termios t;
+    tcgetattr(STDIN_FILENO, &t);
+    t.c_lflag |= (ICANON | ECHO);  // Réactive saisie ligne et affichage
+    tcsetattr(STDIN_FILENO, TCSANOW, &t);
 }
 
 
-void viderBuffer() {
-    int c;
-    while ((c = getchar()) != '\n' && c != EOF);
-}
+

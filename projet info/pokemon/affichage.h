@@ -37,7 +37,4 @@ void gagnantj1();
 
 void gagnantj2();
 
-void egalite();
-
-
 #endif

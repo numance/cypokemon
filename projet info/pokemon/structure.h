@@ -52,8 +52,4 @@ typedef struct {
 } Actif;
 
 
-
-Poke* listepoke(int i);
-
-
 #endif

@@ -7,7 +7,6 @@ SRC = \
     combat/combat.c \
     demarrage/demar.c \
     pokemon/choixpokes.c \
-    pokemon/structure.c \
     pokemon/fonction.c \
     pokemon/affichage.c
 
