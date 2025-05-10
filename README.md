@@ -8,10 +8,10 @@ Voici quelques exemples d’interactions entre les types :
 Attaque de type Sol
 
 Très efficace contre les Pokémon de type Électrique.
-
 Peu efficace contre les Pokémon de type Plante.
 
 Attaque de type Électrique
+
 Très efficace contre les Pokémon de type Eau.
 Inefficace contre les Pokémon de type Sol.
 Peu efficace contre les Pokémon de type Plante.
