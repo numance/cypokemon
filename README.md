@@ -11,6 +11,7 @@ Très efficace contre les Pokémon de type Électrique.
 
 Peu efficace contre les Pokémon de type Plante.
 
+
 Attaque de type Électrique
 
 Très efficace contre les Pokémon de type Eau.
@@ -19,11 +20,13 @@ Inefficace contre les Pokémon de type Sol.
 
 Peu efficace contre les Pokémon de type Plante.
 
+
 Attaque de type Feu
 
 Très efficace contre les Pokémon de type Plante.
 
 Peu efficace contre les Pokémon de type Eau.
+
 
 Attaque de type Eau
 
@@ -31,11 +34,18 @@ Très efficace contre les Pokémon de type Feu et de type Sol.
 
 Peu efficace contre les Pokémon de type Plante.
 
+
 Attaque de type Plante
 
 Très efficace contre les Pokémon de type Sol et de type Eau.
 
 Peu efficace contre les Pokémon de type Feu.
+
+
+Attaque de type Normal
+
+Efficace sur tout les types de Pokemons ni faiblesse ni résistance
+
 
 Il existe aussi des attaques qui soignent et d'autres qui font varier les stats par exemple augmenter l'attaque ou la défense ou bien baisser celle du pokemon adverse.
 
