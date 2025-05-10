@@ -34,17 +34,17 @@ int getch() {
 
 
 void desactiverSaisie() {
-    struct termios t;
-    tcgetattr(STDIN_FILENO, &t);
-    t.c_lflag &= ~(ICANON | ECHO);  // Désactive saisie ligne et affichage
-    tcsetattr(STDIN_FILENO, TCSANOW, &t);
+    struct termios t;      // Déclare une structure pour stocker les paramètres du terminal
+    tcgetattr(STDIN_FILENO, &t);  // Récupère les paramètres actuels du terminal
+    t.c_lflag &= ~(ICANON | ECHO);  // Désactive le mode canonique (saisie ligne) et l'affichage des caractères
+    tcsetattr(STDIN_FILENO, TCSANOW, &t);       // Applique immédiatement les nouveaux paramètres
 }
 
 void activerSaisie() {
-    struct termios t;
-    tcgetattr(STDIN_FILENO, &t);
-    t.c_lflag |= (ICANON | ECHO);  // Réactive saisie ligne et affichage
-    tcsetattr(STDIN_FILENO, TCSANOW, &t);
+    struct termios t;    // Déclare une structure pour stocker les paramètres du terminal
+    tcgetattr(STDIN_FILENO, &t);  // Récupère les paramètres actuels du terminal
+    t.c_lflag |= (ICANON | ECHO);     // Réactive le mode canonique (saisie ligne) et l'affichage des caractères
+    tcsetattr(STDIN_FILENO, TCSANOW, &t);  // Applique immédiatement les nouveaux paramètres
 }
 
 

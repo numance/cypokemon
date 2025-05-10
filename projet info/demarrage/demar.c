@@ -5,14 +5,14 @@
 
 
 
-int afficherMenu(char* menu[], int menu_n) { //permet de se deplacer dans le menu pour choisir notre choix
+int afficherMenu(char* menu[], int menu_n) { //permet de se déplacer dans le menu pour choisir notre choix
     int choix = 0;  //l'option sélectionnée à la base
     int touche;
     int tailleMenu=0;
-    while(menu[tailleMenu]!=NULL) {
+    while(menu[tailleMenu]!=NULL) { // adapte la taille du menu en fonction de son nombre de possibilité
         tailleMenu+=1;
     }
-    while (1) { //boucle infini tant que touche diferent de entrée
+    while (1) { //boucle infinie tant que touche diferent de entrée
         system("clear");
         if(menu_n==0) { // affiche le menu voulu en fonction de menu_n
             afficherMenu0();
@@ -26,7 +26,7 @@ int afficherMenu(char* menu[], int menu_n) { //permet de se deplacer dans le men
         printf("\n\n\n");
         for (int i = 0; i < tailleMenu; i++) {
             if (i == choix) {
-                printf("                                               > %s <\n\n", menu[i]); //option selectionnés
+                printf("                                               > %s <\n\n", menu[i]); //option selectionnée
             } else {
                 printf("                                                %s\n\n", menu[i]);  // Autres options
             }
@@ -83,7 +83,7 @@ int menu() { //fonction principale
             if(choix_x==0) {
                 choix=10; // pour j vs j compris entre 10 et 12 
             } else if(choix_x==1) {
-                choix=3; // lance choix difficulte pour j vs ordi
+                choix=3; // lance choix difficulté pour j vs ordi
             } else {
                 choix=0; // retourne 1er menu
             }

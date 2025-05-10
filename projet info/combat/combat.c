@@ -47,7 +47,7 @@ void affichagePokepv(Poke* j1[3], Poke* j2[3], int tour, Actif* actif) { // affi
         barrepvj2=1;
     } else {
         barrepvj2=j2[actif->actif2]->pvactuel/4; // donne le nombre de barre a afficher
-    printf("     ");
+        printf("     ");
     }
     for(int i=1; i<=25; i++) { // j1 affiche une barre tout les 4pv et limiter a 25
         if(barrepvj1>=i) {
@@ -168,9 +168,9 @@ int choixattj1(Poke* joueur1[3], Poke* joueur2[3], int tour, Actif* actif) { // 
             for (int i = 0; i < nbratt + 1; i++) { 
                 if (i == choix) {
                     if (i < 4) {
-                        printf("    > %s <\n", joueur1[actif->actif1]->attaque[i]->nom); // si choix <4
+                        printf("    > %s <\n", joueur1[actif->actif1]->attaque[i]->nom); // si choix att normale
                     } else {
-                        printf("    > %s (Attaque spéciale) <\n", joueur1[actif->actif1]->attspe->nom); // si choix = 5
+                        printf("    > %s (Attaque spéciale) <\n", joueur1[actif->actif1]->attspe->nom); // si choix att spe
                     }
                 } else {
                     if (i < 4) {
@@ -208,27 +208,27 @@ int choixchangementpoke2restantj1(Poke* joueur1[3], Poke* joueur2[3], int tour, 
     while (1) { //boucle infini tant que touche diiferent de entrée
         affichagePokepv(joueur1, joueur2, tour, actif);
         printf("     choix du pokemon joueur 1\n\n");
-        if (joueur1[0]->pvactuel==0 && actif->actif1!=0 ) {
-            if(actif->actif1==1) {
+        if (joueur1[0]->pvactuel==0 && actif->actif1!=0 ) { // si poke 0 mort et pas actif
+            if(actif->actif1==1) { // si actif 1 propose poke 2
                 printf("    > %s  %d/%d <\n", joueur1[2]->name, joueur1[2]->pvactuel, joueur1[2]->pvmax); 
                 choix=2;
-            } else {
+            } else { // sinon propose poke 1
                 printf("    > %s  %d/%d <\n", joueur1[1]->name, joueur1[1]->pvactuel, joueur1[1]->pvmax);
                 choix=1;
             }
-        } else if(joueur1[1]->pvactuel==0 && actif->actif1!=1 ) {
-            if(actif->actif1==2) {
-                printf("    > %s  %d/%d <\n", joueur1[0]->name, joueur1[0]->pvactuel, joueur1[0]->pvmax); //option selectionnés
+        } else if(joueur1[1]->pvactuel==0 && actif->actif1!=1 ) { // si poke 1 mort et pas actif
+            if(actif->actif1==2) { // si actif 2 propose poke 0
+                printf("    > %s  %d/%d <\n", joueur1[0]->name, joueur1[0]->pvactuel, joueur1[0]->pvmax); 
                 choix=0;
-            } else {
+            } else { // sinon propose poke 2
                 printf("    > %s  %d/%d <\n", joueur1[2]->name, joueur1[2]->pvactuel, joueur1[2]->pvmax);
                 choix=2;
             }
-        } else if(joueur1[2]->pvactuel==0 && actif->actif1!=2) {
-            if(actif->actif1==0) {
+        } else if(joueur1[2]->pvactuel==0 && actif->actif1!=2) { // si poke 3 mort et pas actif
+            if(actif->actif1==0) { // si actif 0 propose poke 1
                 printf("    > %s  %d/%d <\n", joueur1[1]->name, joueur1[1]->pvactuel, joueur1[1]->pvmax);
                 choix=1;
-            } else {
+            } else { // sinon propose poke 0
                 printf("    > %s  %d/%d <\n", joueur1[0]->name, joueur1[0]->pvactuel, joueur1[0]->pvmax);
                 choix=0;
             }
@@ -254,16 +254,16 @@ int choixchangementpoke3restantj1(Poke* joueur1[3], Poke* joueur2[3], int tour, 
     if (choix == actif->actif1) choix++;
 
     while (1) {
-        if(actif->actif1!=1) {
+        if(actif->actif1!=1) { // si poke actif diff de 1
             affichagePokepv(joueur1, joueur2, tour, actif);
             printf("     Choix du Pokémon joueur 1 \n\n");
 
             for (int i = 0; i < nbrpoke; i++) {
-                if (i == actif->actif1) continue;
+                if (i == actif->actif1) continue; // si actif passe et n'affiche pas
                 if (i == choix) {
-                    printf("    > %s  %d/%d <\n", joueur1[i]->name, joueur1[i]->pvactuel, joueur1[i]->pvmax);
+                    printf("    > %s  %d/%d <\n", joueur1[i]->name, joueur1[i]->pvactuel, joueur1[i]->pvmax); // option selectionné
                 } else {
-                    printf("      %s  %d/%d \n", joueur1[i]->name, joueur1[i]->pvactuel, joueur1[i]->pvmax);
+                    printf("      %s  %d/%d \n", joueur1[i]->name, joueur1[i]->pvactuel, joueur1[i]->pvmax); // autres options
                 }
             }
 
@@ -273,28 +273,28 @@ int choixchangementpoke3restantj1(Poke* joueur1[3], Poke* joueur2[3], int tour, 
                 getch();
                 switch (getch()) {
                     case 'A': // flèche haut
-                        if (choix > 0 && choix - 1 != actif->actif1) {
+                        if (choix > 0 && choix - 1 != actif->actif1) { // pour ne pas selectionner actif sans faire expres
                             choix--;
                         }
                         break;
 
                     case 'B': // flèche bas
-                        if (choix < nbrpoke - 1 && choix + 1 != actif->actif1) {
+                        if (choix < nbrpoke - 1 && choix + 1 != actif->actif1) { // pour ne pas selectionner actif sans faire expres
                             choix++;
                         }
                         break;
                 }
             } else if (touche == ENTER) {
-                if (choix != actif->actif1) {
+                if (choix != actif->actif1) { // verifie que choix different de actif
                     return choix+5;
                 }
             }
-        } else {
+        } else { // pour poke actif 1
             affichagePokepv(joueur1, joueur2, tour, actif);
             printf("  Choix du Pokémon joueur 1 \n\n");
 
             for (int i = 0; i < nbrpoke; i++) {
-                if (i == actif->actif1) continue;
+                if (i == actif->actif1) continue; // si actif passe et n'affiche pas
                 if (i == choix) {
                     printf("    > %s  %d/%d <\n", joueur1[i]->name, joueur1[i]->pvactuel, joueur1[i]->pvmax);
                 } else {
@@ -308,19 +308,19 @@ int choixchangementpoke3restantj1(Poke* joueur1[3], Poke* joueur2[3], int tour, 
                 getch();
                 switch (getch()) {
                     case 'A': // flèche haut
-                        if (choix == 2) {
+                        if (choix == 2) { // passe de 2 a 0 pour sauté 1
                             choix-=2;
                         }
                         break;
 
                     case 'B': // flèche bas
-                        if (choix == 0 ) {
+                        if (choix == 0 ) { // passe de 0 a 2 pour sauté 1
                             choix+=2;
                         }
                         break;
                 }
             } else if (touche == ENTER) {
-                if (choix != actif->actif1) {
+                if (choix != actif->actif1) { // verifie que choix different de actif
                     return choix+5;
                 }
             }
@@ -337,12 +337,12 @@ int choixtypeactionj1(Poke* joueur1[3], Poke* joueur2[3], int tour, Actif* actif
     int touche;
     int nbrtype=2;
     char* type[2]={"attaque","changer de pokemon"};
-    while (1) { //boucle infini tant que touche diiferent de entrée
+    while (1) { //boucle infini tant que touche different de entrée
         affichagePokepv(joueur1, joueur2, tour, actif);
         printf("     choix du type d'action joueur 1\n\n");
         for (int i = 0; i < nbrtype; i++) {
             if (i == choix) {
-                printf("    > %s <\n", type[i]); //option selectionnés
+                printf("    > %s <\n", type[i]); //option selectionné
             } else {
                 printf("      %s\n", type[i]);  // Autres options
             }
@@ -350,22 +350,22 @@ int choixtypeactionj1(Poke* joueur1[3], Poke* joueur2[3], int tour, Actif* actif
 
         touche = getch(); // Lire la touche
 
-        if (touche == '\033') {  // Si c'est une touche correspondant a une fleche
-            getch();  // Ignore le second caractère
+        if (touche == '\033') {  
+            getch();
             switch (getch()) {
-                case 'A':  // pour la flèche du haut \033[A
-                    if (choix > 0) choix--;  // Déplacer vers le haut sauf si tout en haut
+                case 'A': 
+                    if (choix > 0) choix--;  
                     break;
-                case 'B':  // pour la flèche du bas \033[B
-                    if (choix < nbrtype - 1) choix++;  // Déplacer vers le bas sauf si tout en bas
+                case 'B': 
+                    if (choix < nbrtype - 1) choix++;
                     break;
             }
-        } else if (touche == ENTER) {  // Si appuie sur entrée met fin a la boucle
+        } else if (touche == ENTER) { 
             break;
         }
     }
 
-    return choix;  // Retourner l'option sélectionnée
+    return choix;  
 }
 
 
@@ -380,23 +380,23 @@ int choixactionj1(Poke* joueur1[3], Poke* joueur2[3], int tour, Actif* actif) {
     }
 
     if (nb_vivants == 3) { // Tous les Pokémon sont vivants
-        choix1 = choixtypeactionj1(joueur1, joueur2, tour, actif);
-        if(choix1 == 0) {
+        choix1 = choixtypeactionj1(joueur1, joueur2, tour, actif); // demande aux joueur attaque ou changer
+        if(choix1 == 0) { // en fonction de choix avant lance le choix correspondant
             choix2 = choixattj1(joueur1, joueur2, tour, actif);
         } else {
             choix2 = choixchangementpoke3restantj1(joueur1, joueur2, tour, actif);
         }
     }
     else if (nb_vivants == 2) { //  2 Pokémon vivants
-        choix1 = choixtypeactionj1(joueur1, joueur2, tour, actif);
-        if(choix1 == 0) {
+        choix1 = choixtypeactionj1(joueur1, joueur2, tour, actif); // demande aux joueur attaque ou changer
+        if(choix1 == 0) { // en fonction de choix avant lance le choix correspondant
             choix2 = choixattj1(joueur1, joueur2, tour, actif);
         } else {
             choix2 = choixchangementpoke2restantj1(joueur1, joueur2, tour, actif);
         }
     }
     else { // 1  Pokémon vivant 
-        choix2 = choixattj1(joueur1, joueur2, tour, actif);
+        choix2 = choixattj1(joueur1, joueur2, tour, actif); // lance choix attaque directe
     }
     
     return choix2;
@@ -409,12 +409,12 @@ int choixactionj1(Poke* joueur1[3], Poke* joueur2[3], int tour, Actif* actif) {
 
 
 
-int choixattj2(Poke* joueur1[3], Poke* joueur2[3], int tour, Actif* actif) { // permet de se déplacer dans le menu pour choisir une attaque
-    int choix = 0;  // option sélectionnée par défaut
+int choixattj2(Poke* joueur1[3], Poke* joueur2[3], int tour, Actif* actif) { // meme principe que j1 peut etre optimiser
+    int choix = 0;  
     int touche;
     int nbratt = 4;
 
-    while (1) { // boucle infinie tant qu'on n'appuie pas sur Entrée
+    while (1) { 
         affichagePokepv(joueur1, joueur2, tour, actif);
         printf("     choix de l'attaque joueur 2\n\n");
 
@@ -429,7 +429,7 @@ int choixattj2(Poke* joueur1[3], Poke* joueur2[3], int tour, Actif* actif) { // 
 
             touche = getch();
             if (touche == '\033') {
-                getch(); // ignore second caractère
+                getch(); 
                 switch (getch()) {
                     case 'A':
                         if (choix > 0) choix--;
@@ -460,7 +460,7 @@ int choixattj2(Poke* joueur1[3], Poke* joueur2[3], int tour, Actif* actif) { // 
 
             touche = getch();
             if (touche == '\033') {
-                getch(); // ignore second caractère
+                getch(); 
                 switch (getch()) {
                     case 'A':
                         if (choix > 0) choix--;
@@ -479,7 +479,7 @@ int choixattj2(Poke* joueur1[3], Poke* joueur2[3], int tour, Actif* actif) { // 
 }
 
 
-int choixchangementpoke2restantj2(Poke* joueur1[3], Poke* joueur2[3], int tour, Actif* actif) {
+int choixchangementpoke2restantj2(Poke* joueur1[3], Poke* joueur2[3], int tour, Actif* actif) { // meme principe que j1 peut etre optimiser
     int choix = 0;
     int touche;
     while (1) {
@@ -512,23 +512,22 @@ int choixchangementpoke2restantj2(Poke* joueur1[3], Poke* joueur2[3], int tour, 
             }
         }
 
-        touche = getch(); // Lire la touche
+        touche = getch();
 
-        if (touche == ENTER) {  // Si appuie entrée
+        if (touche == ENTER) { 
             break;
         }
     }
-    return choix + 5;  // Retourne l'index du Pokémon sélectionné pour j2
+    return choix + 5; 
 }
 
 
 
-int choixchangementpoke3restantj2(Poke* joueur1[3], Poke* joueur2[3], int tour, Actif* actif) {
+int choixchangementpoke3restantj2(Poke* joueur1[3], Poke* joueur2[3], int tour, Actif* actif) { // meme principe que j1 peut etre optimiser
     int choix = 0;
     int touche;
     int nbrpoke = 3;
 
-    // S'assurer qu'on ne commence pas sur le Pokémon actif
     if (choix == actif->actif2) choix++;
 
     while (1) {
@@ -550,13 +549,13 @@ int choixchangementpoke3restantj2(Poke* joueur1[3], Poke* joueur2[3], int tour, 
             if (touche == '\033') {
                 getch();
                 switch (getch()) {
-                    case 'A': // flèche haut
+                    case 'A': 
                         if (choix > 0 && choix - 1 != actif->actif2) {
                             choix--;
                         }
                         break;
 
-                    case 'B': // flèche bas
+                    case 'B': 
                         if (choix < nbrpoke - 1 && choix + 1 != actif->actif2) {
                             choix++;
                         }
@@ -585,13 +584,13 @@ int choixchangementpoke3restantj2(Poke* joueur1[3], Poke* joueur2[3], int tour, 
             if (touche == '\033') {
                 getch();
                 switch (getch()) {
-                    case 'A': // flèche haut
+                    case 'A': 
                         if (choix == 2) {
                             choix-=2;
                         }
                         break;
 
-                    case 'B': // flèche bas
+                    case 'B': 
                         if (choix == 0 ) {
                             choix+=2;
                         }
@@ -610,53 +609,53 @@ int choixchangementpoke3restantj2(Poke* joueur1[3], Poke* joueur2[3], int tour, 
 
 
 
-int choixtypeactionj2(Poke* joueur1[3], Poke* joueur2[3], int tour, Actif* actif) { //permet de se deplacer dans le menu pour choisir notre choix
-    int choix = 0;  //l'option sélectionnée à la base
+int choixtypeactionj2(Poke* joueur1[3], Poke* joueur2[3], int tour, Actif* actif) { // meme principe que j1 peut etre optimiser
+    int choix = 0;  
     int touche;
     int nbrtype=2;
     char* type[2]={"attaque","changer de pokemon"};
     printf("test");
-    while (1) { //boucle infini tant que touche diiferent de entrée
+    while (1) { 
         affichagePokepv(joueur1, joueur2, tour, actif);
         printf("     choix du type d'action joueur 2\n\n");
         for (int i = 0; i < nbrtype; i++) {
             if (i == choix) {
-                printf("    > %s <\n", type[i]); //option selectionnés
+                printf("    > %s <\n", type[i]); 
             } else {
-                printf("      %s\n", type[i]);  // Autres options
+                printf("      %s\n", type[i]); 
             }
         }
 
-        touche = getch(); // Lire la touche
+        touche = getch(); 
 
-        if (touche == '\033') {  // Si c'est une touche correspondant a une fleche
-            getch();  // Ignore le second caractère
+        if (touche == '\033') {  
+            getch();  
             switch (getch()) {
-                case 'A':  // pour la flèche du haut \033[A
-                    if (choix > 0) choix--;  // Déplacer vers le haut sauf si tout en haut
+                case 'A':  
+                    if (choix > 0) choix--;  
                     break;
-                case 'B':  // pour la flèche du bas \033[B
-                    if (choix < nbrtype - 1) choix++;  // Déplacer vers le bas sauf si tout en bas
+                case 'B': 
+                    if (choix < nbrtype - 1) choix++;  
                     break;
             }
-        } else if (touche == ENTER) {  // Si appuie sur entrée met fin a la boucle
+        } else if (touche == ENTER) { 
             break;
         }
     }
 
-    return choix;  // Retourner l'option sélectionnée
+    return choix;  
 }
 
 
 
-int choixactionj2(Poke* joueur1[3], Poke* joueur2[3], int tour, Actif* actif) {
+int choixactionj2(Poke* joueur1[3], Poke* joueur2[3], int tour, Actif* actif) { // meme principe que j1 peut etre optimiser
     int choix2=0;
     int choix1=0;
     int nb_vivants = 0;
-    for (int i = 0; i < 3; i++) { // Compter le nombre de Pokémon encore en vie
+    for (int i = 0; i < 3; i++) { 
         if (joueur2[i]->pvactuel != 0) nb_vivants++;
     }
-    if (nb_vivants == 3) { // Premier cas : tous les Pokémon sont vivants
+    if (nb_vivants == 3) { 
         choix1 = choixtypeactionj2(joueur1, joueur2, tour, actif);
         if(choix1==0) {
             choix2=choixattj2(joueur1, joueur2, tour, actif);
@@ -664,14 +663,14 @@ int choixactionj2(Poke* joueur1[3], Poke* joueur2[3], int tour, Actif* actif) {
             choix2=choixchangementpoke3restantj2(joueur1, joueur2, tour, actif);
         }
     }
-    else if (nb_vivants == 2) { // Deuxième cas : exactement 2 Pokémon vivants
+    else if (nb_vivants == 2) { 
         if(choix1==0) {
             choix2=choixattj2(joueur1, joueur2, tour, actif);
         } else {
             choix2=choixchangementpoke2restantj2(joueur1, joueur2, tour, actif);
         }
     }
-    else { // Dernier cas : 1 seul Pokémon vivant (obligé d'attaquer)
+    else {
         choix2 = choixattj2(joueur1, joueur2, tour, actif);
     }
     
@@ -748,26 +747,26 @@ float calculerEfficacite(int typeAttaquant, int typeDefenseur) {
 }
 
 
-int attfonction0j2(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj2, int esquive1, int reussite2, Actif* actif) { // pour attaque du j2
+int attfonction0j2(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj2, int esquive1, int reussite2, Actif* actif) { // att fonction qui met dommmage
     affichagePokepv(joueur1, joueur2, tour, actif);
-    float effi2=calculerEfficacite(joueur2[actif->actif2]->type, joueur1[actif->actif1]->type);
+    float effi2=calculerEfficacite(joueur2[actif->actif2]->type, joueur1[actif->actif1]->type); // calcule l'efficacité qu'aura l'attaque en fonction type
         printf("     %s utilise %s\n", joueur2[actif->actif2]->name, joueur2[actif->actif2]->attaque[actionj2]->nom);
         sleep(2);
-        if(joueur2[actif->actif2]->attaque[actionj2]->reussite<reussite2) {
+        if(joueur2[actif->actif2]->attaque[actionj2]->reussite<reussite2) { // si chiffre généré plus grand que reussite de l'att alors il rate
             affichagePokepv(joueur1, joueur2, tour, actif);
             printf("     %s a raté son attaque\n", joueur2[actif->actif2]->name);
             sleep(2);
-        } else if(joueur1[actif->actif1]->agi>=esquive1) {
+        } else if(joueur1[actif->actif1]->agi>=esquive1) { // si agi est plus grand que le nombre généré alors esquive l'attaque
             affichagePokepv(joueur1, joueur2, tour, actif);
             printf("     %s a esquivé l'attaque\n", joueur1[actif->actif1]->name);
             sleep(2);
         } else {
-            joueur1[actif->actif1]->pvactuel-=(calculerEfficacite(joueur2[actif->actif2]->type, joueur1[actif->actif1]->type)*joueur2[actif->actif2]->attaque[actionj2]->degat)/(joueur1[actif->actif1]->defactuel)*(joueur2[actif->actif2]->attactuel);
+            joueur1[actif->actif1]->pvactuel-=(calculerEfficacite(joueur2[actif->actif2]->type, joueur1[actif->actif1]->type)*joueur2[actif->actif2]->attaque[actionj2]->degat)/(joueur1[actif->actif1]->defactuel)*(joueur2[actif->actif2]->attactuel); // calcul des degats infligés en fonction differents parametres
             if(joueur1[actif->actif1]->pvactuel<=0) {
-                joueur1[actif->actif1]->pvactuel=0;
+                joueur1[actif->actif1]->pvactuel=0; // si pv négatif remis a zero
             }
             affichagePokepv(joueur1, joueur2, tour, actif);
-            if (effi2==2.0) {
+            if (effi2==2.0) { // affiche l'efficacite de l'attaque
                 printf("     Super efficace\n");
             } else if (effi2==1.0) {
                 printf("     Efficace\n");
@@ -782,7 +781,7 @@ int attfonction0j2(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj2, i
 } 
 
 
-int attfonction0j1(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj1, int esquive2, int reussite1, Actif* actif) { // pour attaque du j1
+int attfonction0j1(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj1, int esquive2, int reussite1, Actif* actif) { // meme principe que l'attaque d'au dessus possible optimisation
     affichagePokepv(joueur1, joueur2, tour, actif);
     float effi1=calculerEfficacite(joueur1[actif->actif1]->type, joueur2[actif->actif2]->type);
         printf("     %s utilise %s\n", joueur1[actif->actif1]->name, joueur1[actif->actif1]->attaque[actionj1]->nom);
@@ -816,17 +815,17 @@ int attfonction0j1(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj1, i
 }
 
 
-int attfonction1j1(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj1, int reussite1, Actif* actif) { // pour regeneration du joueur 1
+int attfonction1j1(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj1, int reussite1, Actif* actif) { // attaque avec fonction de regeneration
     affichagePokepv(joueur1, joueur2, tour, actif);
         printf("     %s utilise %s\n", joueur1[actif->actif1]->name, joueur1[actif->actif1]->attaque[actionj1]->nom);
         sleep(2);
-        if(joueur1[actif->actif1]->attaque[actionj1]->reussite<reussite1) {
+        if(joueur1[actif->actif1]->attaque[actionj1]->reussite<reussite1) { // si reussite plus petit que nombre genere alors rate
             affichagePokepv(joueur1, joueur2, tour, actif);
             printf("     %s a raté son attaque\n", joueur1[actif->actif1]->name);
             sleep(2);
         } else {
-            joueur1[actif->actif1]->pvactuel+=joueur1[actif->actif1]->attaque[actionj1]->degat;
-            if(joueur1[actif->actif1]->pvactuel>joueur1[actif->actif1]->pvmax) {
+            joueur1[actif->actif1]->pvactuel+=joueur1[actif->actif1]->attaque[actionj1]->degat; // soigne du nombre assimilé a l'attaque
+            if(joueur1[actif->actif1]->pvactuel>joueur1[actif->actif1]->pvmax) { // si au dessus pv max remé a pv max
                 joueur1[actif->actif1]->pvactuel=joueur1[actif->actif1]->pvmax;
             }
             printf("     %s a récuperé de la vie\n", joueur1[actif->actif1]->name);
@@ -835,7 +834,7 @@ int attfonction1j1(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj1, i
         return 0;
 }       
 
-int attfonction1j2(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj2, int reussite2, Actif* actif) { // pour regeneration du j 2
+int attfonction1j2(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj2, int reussite2, Actif* actif) { // meme principe que l'attaque d'au dessus possible optimisation
     affichagePokepv(joueur1, joueur2, tour, actif);
         printf("     %s utilise %s\n", joueur2[actif->actif2]->name, joueur2[actif->actif2]->attaque[actionj2]->nom);
         sleep(2);
@@ -855,17 +854,17 @@ int attfonction1j2(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj2, i
 } 
 
 
-int attfonction2j2(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj2, int reussite2, Actif* actif) { // pour augm att du j2
+int attfonction2j2(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj2, int reussite2, Actif* actif) { // attaque qui permet d'augmenter stat attaque
     affichagePokepv(joueur1, joueur2, tour, actif);
         printf("     %s utilise %s\n", joueur2[actif->actif2]->name, joueur2[actif->actif2]->attaque[actionj2]->nom);
         sleep(2);
-        if(joueur2[actif->actif2]->attaque[actionj2]->reussite<reussite2) {
+        if(joueur2[actif->actif2]->attaque[actionj2]->reussite<reussite2) { // si reussite plus petit que nombre genere alors rate
             affichagePokepv(joueur1, joueur2, tour, actif);
             printf("     %s a raté son attaque\n", joueur2[actif->actif2]->name);
             sleep(2);
         } else {
-            joueur2[actif->actif2]->attactuel*=joueur2[actif->actif2]->attaque[actionj2]->degat;
-            if(joueur2[actif->actif2]->attactuel>2*joueur2[actif->actif2]->attmax) {
+            joueur2[actif->actif2]->attactuel*=joueur2[actif->actif2]->attaque[actionj2]->degat; // boost son attaque d'un certain coeficient
+            if(joueur2[actif->actif2]->attactuel>2*joueur2[actif->actif2]->attmax) { // si attact superieur a 2x attmax remet a 2x att max
                 joueur2[actif->actif2]->attactuel=2*joueur2[actif->actif2]->attmax;
             }
             printf("     %s a augmenté son attaque\n", joueur2[actif->actif2]->name);
@@ -874,7 +873,7 @@ int attfonction2j2(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj2, i
         return 0;
 } 
 
-int attfonction2j1(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj1, int reussite1, Actif* actif) { // pour augm att du j1
+int attfonction2j1(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj1, int reussite1, Actif* actif) {  // meme principe que l'attaque d'au dessus possible optimisation
     affichagePokepv(joueur1, joueur2, tour, actif);
         printf("     %s utilise %s\n", joueur1[actif->actif1]->name, joueur1[actif->actif1]->attaque[actionj1]->nom);
         sleep(2);
@@ -894,21 +893,21 @@ int attfonction2j1(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj1, i
 } 
 
 
-int attfonction3j2(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj2, int esquive1, int reussite2, Actif* actif) { // pour baisse att du j1
+int attfonction3j2(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj2, int esquive1, int reussite2, Actif* actif) { // attaque pour baisser stat att de l'adversaire
     affichagePokepv(joueur1, joueur2, tour, actif);
         printf("     %s utilise %s\n", joueur2[actif->actif2]->name, joueur2[actif->actif2]->attaque[actionj2]->nom);
         sleep(2);
-        if(joueur2[actif->actif2]->attaque[actionj2]->reussite<reussite2) {
+        if(joueur2[actif->actif2]->attaque[actionj2]->reussite<reussite2) { // meme principe de reussite qu'avant
             affichagePokepv(joueur1, joueur2, tour, actif);
             printf("     %s a raté son attaque\n", joueur2[actif->actif2]->name);
             sleep(2);
-        } else if(joueur1[actif->actif1]->agi>=esquive1) {
+        } else if(joueur1[actif->actif1]->agi>=esquive1) { // meme principe d'esquive qu'avant
             affichagePokepv(joueur1, joueur2, tour, actif);
             printf("     %s a esquivé l'attaque\n", joueur1[actif->actif1]->name);
             sleep(2);
         } else {
             joueur1[actif->actif1]->attactuel*=joueur2[actif->actif2]->attaque[actionj2]->degat;
-            if(joueur1[actif->actif1]->attactuel<0.5*joueur1[actif->actif1]->attmax) {
+            if(joueur1[actif->actif1]->attactuel<0.5*joueur1[actif->actif1]->attmax) { // si attact inferieur a 0.5 att max alors remet a 0.5
                 joueur1[actif->actif1]->attactuel=0.5*joueur1[actif->actif1]->attmax;
             }
             printf("     L'attaque de %s diminue\n", joueur1[actif->actif1]->name);
@@ -918,7 +917,7 @@ int attfonction3j2(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj2, i
 } 
 
 
-int attfonction3j1(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj1, int esquive2, int reussite1, Actif* actif) { // pour baisse att du j2
+int attfonction3j1(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj1, int esquive2, int reussite1, Actif* actif) {  // meme principe que l'attaque d'au dessus possible optimisation
     affichagePokepv(joueur1, joueur2, tour, actif);
         printf("     %s utilise %s\n", joueur1[actif->actif1]->name, joueur1[actif->actif1]->attaque[actionj1]->nom);
         sleep(2);
@@ -942,7 +941,7 @@ int attfonction3j1(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj1, i
 } 
 
 
-int attfonction4j2(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj2, int reussite2, Actif* actif) { // pour augm def du j2
+int attfonction4j2(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj2, int reussite2, Actif* actif) { // attaque pour augm stat def 
     affichagePokepv(joueur1, joueur2, tour, actif);
         printf("     %s utilise %s\n", joueur2[actif->actif2]->name, joueur2[actif->actif2]->attaque[actionj2]->nom);
         sleep(2);
@@ -952,7 +951,7 @@ int attfonction4j2(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj2, i
             sleep(2);
         } else {
             joueur2[actif->actif2]->defactuel*=joueur2[actif->actif2]->attaque[actionj2]->degat;
-            if(joueur2[actif->actif2]->defactuel>2*joueur2[actif->actif2]->defmax) {
+            if(joueur2[actif->actif2]->defactuel>2*joueur2[actif->actif2]->defmax) { // si defact superieur a 2 defmax remet a 2 defmax
                 joueur2[actif->actif2]->defactuel=2*joueur2[actif->actif2]->defmax;
             }
             printf("     %s a augmenté son attaque\n", joueur2[actif->actif2]->name);
@@ -961,7 +960,7 @@ int attfonction4j2(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj2, i
         return 0;
 }
 
-int attfonction4j1(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj1, int reussite1, Actif* actif) { // pour augm def du j1
+int attfonction4j1(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj1, int reussite1, Actif* actif) {  // meme principe que l'attaque d'au dessus possible optimisation
     affichagePokepv(joueur1, joueur2, tour, actif);
         printf("     %s utilise %s\n", joueur1[actif->actif1]->name, joueur1[actif->actif1]->attaque[actionj1]->nom);
         sleep(2);
@@ -981,7 +980,7 @@ int attfonction4j1(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj1, i
 } 
 
 
-int attfonction5j2(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj2, int esquive1, int reussite2, Actif* actif) { // pour baisse def du j1
+int attfonction5j2(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj2, int esquive1, int reussite2, Actif* actif) { // attaque baisser stat def 
     affichagePokepv(joueur1, joueur2, tour, actif);
         printf("     %s utilise %s\n", joueur2[actif->actif2]->name, joueur2[actif->actif2]->attaque[actionj2]->nom);
         sleep(2);
@@ -995,7 +994,7 @@ int attfonction5j2(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj2, i
             sleep(2);
         } else {
             joueur1[actif->actif1]->defactuel*=joueur2[actif->actif2]->attaque[actionj2]->degat;
-            if(joueur1[actif->actif1]->defactuel<0.5*joueur1[actif->actif1]->defmax) {
+            if(joueur1[actif->actif1]->defactuel<0.5*joueur1[actif->actif1]->defmax) { // si defact inferieur a 0.5 att max alors remet a 0.5
                 joueur1[actif->actif1]->defactuel=0.5*joueur1[actif->actif1]->defmax;
             }
             printf("     La defense de %s diminue\n", joueur1[actif->actif1]->name);
@@ -1005,7 +1004,7 @@ int attfonction5j2(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj2, i
 } 
 
 
-int attfonction5j1(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj1, int esquive2, int reussite1, Actif* actif) { // pour baisse def du j2
+int attfonction5j1(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj1, int esquive2, int reussite1, Actif* actif) { // meme principe que l'attaque d'au dessus possible optimisation
     affichagePokepv(joueur1, joueur2, tour, actif);
         printf("     %s utilise %s\n", joueur1[actif->actif1]->name, joueur1[actif->actif1]->attaque[actionj1]->nom);
         sleep(2);
@@ -1019,7 +1018,7 @@ int attfonction5j1(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj1, i
             sleep(2);
         } else {
             joueur2[actif->actif2]->attactuel*=joueur1[actif->actif1]->attaque[actionj1]->degat;
-            if(joueur2[actif->actif2]->defactuel<0.5*joueur2[actif->actif2]->defmax) {
+            if(joueur2[actif->actif2]->defactuel<0.5*joueur2[actif->actif2]->defmax) { 
                 joueur2[actif->actif2]->defactuel=0.5*joueur2[actif->actif2]->defmax;
             }
             printf("     La defense de %s diminue\n", joueur2[actif->actif2]->name);
@@ -1030,18 +1029,18 @@ int attfonction5j1(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj1, i
 
 
 
-int changementcombatj2(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj2, Actif* actif) { // pour augm att du j2
+int changementcombatj2(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj2, Actif* actif) { // pour changement pokemon
     affichagePokepv(joueur1, joueur2, tour, actif);
-    actionj2-=5;
+    actionj2-=5; // on a choix+5 pour fonction changement comme retour donc ici on enlève les 5
     printf("     Le joueur 2 change de pokemon \n     %s rentre dans sa pokeball \n     %s rentre dans le combat\na", joueur2[actif->actif2]->name, joueur2[actionj2]->name);
     sleep(2);
-    actif->actif2=actionj2;
+    actif->actif2=actionj2; // met l'actif au pokemon voulu
     affichagePokepv(joueur1, joueur2, tour, actif);
  
     return 0;
 } 
 
-int changementcombatj1(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj1, Actif* actif) { // pour augm att du j2
+int changementcombatj1(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj1, Actif* actif) { // meme principe que l'attaque d'au dessus possible optimisation
     affichagePokepv(joueur1, joueur2, tour, actif);
     actionj1-=5;
     printf("     Le joueur 1 change de pokemon \n     %s rentre dans sa pokeball\n     %s rentre dans le combat\na", joueur1[actif->actif1]->name, joueur1[actionj1]->name);
@@ -1052,19 +1051,19 @@ int changementcombatj1(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj
 } 
 
 
-int attspecialej1(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj1, Actif* actif) {
+int attspecialej1(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj1, Actif* actif) { // att spécial
     affichagePokepv(joueur1, joueur2, tour, actif);
     printf("     %s utilise son attaque spéciale %s\n", joueur1[actif->actif1]->name, joueur1[actif->actif1]->attspe->nom);
-    if(joueur1[actif->actif1]->attspe->fonction==0) {
-        joueur2[actif->actif2]->pvactuel=0;
-    } else if (joueur1[actif->actif1]->attspe->fonction==1) {
-        joueur1[actif->actif1]->pvactuel=joueur1[actif->actif1]->pvmax;
-    } else if(joueur1[actif->actif1]->attspe->fonction==2) {
-        joueur2[actif->actif2]->statut=3;
-        printf("     %s est maintenant paralysé", joueur2[actif->actif2]->name);
-    } else {
-        joueur2[actif->actif2]->statut=4;
-        printf("     %s est maintenant malade", joueur2[actif->actif2]->name);
+    if(joueur1[actif->actif1]->attspe->fonction==0) { // si l'attaque est du type tue en un coup
+        joueur2[actif->actif2]->pvactuel=0; // met a 0 pv adverse
+    } else if (joueur1[actif->actif1]->attspe->fonction==1) { // si l'attaque est du type régéneration
+        joueur1[actif->actif1]->pvactuel=joueur1[actif->actif1]->pvmax; // remet au max les pv
+    } else if(joueur1[actif->actif1]->attspe->fonction==2) { // si l'attaque est du type paralysie
+        joueur2[actif->actif2]->statut=3; // paralyse l'adversaire pendant 3 tour
+        printf("     %s est maintenant paralysé\n", joueur2[actif->actif2]->name);
+    } else { // si l'attaque est du type virus
+        joueur2[actif->actif2]->statut=4; // rend le pokemon malade jusqu'a la mort
+        printf("     %s est maintenant malade\n", joueur2[actif->actif2]->name);
     }
     joueur1[actif->actif1]->attspe->tempsrechargeact=0;
     sleep(2);
@@ -1072,7 +1071,7 @@ int attspecialej1(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj1, Ac
     return 0;
 }
 
-int attspecialej2(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj2, Actif* actif) {
+int attspecialej2(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj2, Actif* actif) { // meme principe que l'attaque d'au dessus possible optimisation
     affichagePokepv(joueur1, joueur2, tour, actif);
     printf("     %s utilise son attaque spéciale %s\n", joueur2[actif->actif2]->name, joueur2[actif->actif2]->attspe->nom);
     if(joueur2[actif->actif2]->attspe->fonction==0) {
@@ -1081,10 +1080,10 @@ int attspecialej2(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj2, Ac
         joueur2[actif->actif2]->pvactuel=joueur2[actif->actif2]->pvmax;
     } else if(joueur2[actif->actif2]->attspe->fonction==2) {
         joueur1[actif->actif1]->statut=3;
-        printf("     %s est maintenant paralysé", joueur1[actif->actif1]->name);
+        printf("     %s est maintenant paralysé\n", joueur1[actif->actif1]->name);
     } else {
         joueur1[actif->actif1]->statut=4;
-        printf("     %s est maintenant malade", joueur1[actif->actif1]->name);
+        printf("     %s est maintenant malade\n", joueur1[actif->actif1]->name);
     }
     joueur2[actif->actif2]->attspe->tempsrechargeact=0;
     sleep(2);
@@ -1092,11 +1091,10 @@ int attspecialej2(Poke* joueur1[3], Poke* joueur2[3], int tour, int actionj2, Ac
     return 0;
 }
 
-// nouvelle fonction att
 
 
-int attj2(Poke* joueur1[3], Poke* joueur2[3], int actionj1, int actionj2, int tour, Actif* actif, int esquive1, int reussite2) {
-    if(joueur2[actif->actif2]->attaque[actionj2]->fonction==0) { // joueur 2 attaque
+int attj2(Poke* joueur1[3], Poke* joueur2[3], int actionj1, int actionj2, int tour, Actif* actif, int esquive1, int reussite2) { // lance l'attaque du joueur en fonction du type de celle ci
+    if(joueur2[actif->actif2]->attaque[actionj2]->fonction==0) { 
         attfonction0j2(joueur1, joueur2, tour, actionj2, esquive1, reussite2, actif);
     } else if(joueur2[actif->actif2]->attaque[actionj2]->fonction==1) {
         attfonction1j2(joueur1, joueur2, tour, actionj2, reussite2, actif);
@@ -1112,8 +1110,8 @@ int attj2(Poke* joueur1[3], Poke* joueur2[3], int actionj1, int actionj2, int to
     return 0;
 }
 
-int attj1(Poke* joueur1[3], Poke* joueur2[3], int actionj1, int actionj2, int tour, Actif* actif, int esquive2, int reussite1) {
-    if(joueur1[actif->actif1]->attaque[actionj1]->fonction==0) { // joueur 1 attaque
+int attj1(Poke* joueur1[3], Poke* joueur2[3], int actionj1, int actionj2, int tour, Actif* actif, int esquive2, int reussite1) { // meme principe que l'attaque d'au dessus possible optimisation
+    if(joueur1[actif->actif1]->attaque[actionj1]->fonction==0) { 
         attfonction0j1(joueur1, joueur2, tour, actionj1, esquive2, reussite1, actif);
     } else if(joueur1[actif->actif1]->attaque[actionj1]->fonction==1) {
         attfonction1j1(joueur1, joueur2, tour, actionj1, reussite1, actif);
@@ -1130,19 +1128,19 @@ int attj1(Poke* joueur1[3], Poke* joueur2[3], int actionj1, int actionj2, int to
 }
 
 
-int virus(Poke* joueur1[3], Poke* joueur2[3], int tour, Actif* actif) {
-    if(joueur1[actif->actif1]->statut == 4) {
-        joueur1[actif->actif1]->pvactuel-=joueur1[actif->actif1]->pvmax*0.1;
-        printf("     %s souffre d'un virus\n", joueur1[actif->actif1]->name); // virus a reporté partout
+int virus(Poke* joueur1[3], Poke* joueur2[3], int tour, Actif* actif) { // inflige des degats si malade
+    if(joueur1[actif->actif1]->statut == 4) { // si j1 malade
+        joueur1[actif->actif1]->pvactuel-=joueur1[actif->actif1]->pvmax*0.1; // enleve 10% de vie
+        printf("     %s souffre d'un virus\n", joueur1[actif->actif1]->name); 
         sleep(2);
-        if(joueur1[actif->actif1]->pvactuel<0) {
+        if(joueur1[actif->actif1]->pvactuel<0) { // si pv inférieur a zero alors remis a zero
             joueur1[actif->actif1]->pvactuel=0;
         }
         affichagePokepv(joueur1, joueur2, tour, actif);
     }
-    if(joueur2[actif->actif2]->statut == 4) {
+    if(joueur2[actif->actif2]->statut == 4) { // de meme pour j2
         joueur2[actif->actif2]->pvactuel-=joueur2[actif->actif2]->pvmax*0.1;
-        printf("     %s souffre d'un virus\n", joueur2[actif->actif2]->name); // virus a reporté partout
+        printf("     %s souffre d'un virus\n", joueur2[actif->actif2]->name); 
         sleep(2);
         if(joueur2[actif->actif2]->pvactuel<0) {
             joueur2[actif->actif2]->pvactuel=0;
@@ -1152,22 +1150,22 @@ int virus(Poke* joueur1[3], Poke* joueur2[3], int tour, Actif* actif) {
     return 0;
 }
 
-int verifmortj1(Poke* joueur1[3], Poke* joueur2[3], int tour, Actif* actif) {
+int verifmortj1(Poke* joueur1[3], Poke* joueur2[3], int tour, Actif* actif) { // verifie apres att si pokemon mort, retourne O pas de mort, 1 un mort et 2 tous mort
     int actionj1=0;
-    if(joueur1[0]->pvactuel==0 && joueur1[1]->pvactuel==0 && joueur1[2]->pvactuel==0) {
+    if(joueur1[0]->pvactuel==0 && joueur1[1]->pvactuel==0 && joueur1[2]->pvactuel==0) { // si tout les poke mort fin du combat
         printf("     %s est ko\n     Tout les pokemon du joueur 1 sont ko\n", joueur1[actif->actif1]->name);
         sleep(2);
         gagnantj2();
         return 2;
-    } else if(joueur1[actif->actif1]->pvactuel==0 ) {
+    } else if(joueur1[actif->actif1]->pvactuel==0 ) { // si actif meurt
         printf("     %s est ko\n", joueur1[actif->actif1]->name);
         sleep(2);
-        if((joueur1[0]->pvactuel==0 && joueur1[1]->pvactuel==0) ||  (joueur1[1]->pvactuel==0 && joueur1[2]->pvactuel==0) || (joueur1[0]->pvactuel==0 && joueur1[2]->pvactuel==0)) {
-            actionj1=choixchangementpoke2restantj1(joueur1, joueur2, tour, actif);
+        if((joueur1[0]->pvactuel==0 && joueur1[1]->pvactuel==0) ||  (joueur1[1]->pvactuel==0 && joueur1[2]->pvactuel==0) || (joueur1[0]->pvactuel==0 && joueur1[2]->pvactuel==0)) { // un poke en vie
+            actionj1=choixchangementpoke2restantj1(joueur1, joueur2, tour, actif); // lance 2 car ne proposera que celui non actif non mort donc 1
             changementcombatj1(joueur1, joueur2, tour, actionj1, actif);
             return 1;         
-        } else {
-            actionj1=choixchangementpoke3restantj1(joueur1, joueur2, tour, actif);
+        } else { // si deux poke en vie
+            actionj1=choixchangementpoke3restantj1(joueur1, joueur2, tour, actif);// lance 3 car ne proposera que ceux non actif pas le mort
             changementcombatj1(joueur1, joueur2, tour, actionj1, actif);
             return 1;
         }
@@ -1175,9 +1173,9 @@ int verifmortj1(Poke* joueur1[3], Poke* joueur2[3], int tour, Actif* actif) {
     return 0;
 }
 
-int verifmortj2(Poke* joueur1[3], Poke* joueur2[3], int tour, Actif* actif, int choixmenu) {
+int verifmortj2(Poke* joueur1[3], Poke* joueur2[3], int tour, Actif* actif, int choixmenu) { // verif j2 mort pour joueur ou ordi, retourne O pas de mort, 1 un mort et 2 tous mort
     int actionj2;
-    if(choixmenu == 10 || choixmenu == 11 || choixmenu == 12) { // pour j vs j
+    if(choixmenu == 10 || choixmenu == 11 || choixmenu == 12) { // pour j vs j comme la fonction précedente
         if(joueur2[0]->pvactuel==0 && joueur2[1]->pvactuel==0 && joueur2[2]->pvactuel==0) {
             printf("     %s est ko\n     Tout les pokemon du joueur 2 sont ko\n", joueur2[actif->actif2]->name);
             sleep(2);
@@ -1197,16 +1195,16 @@ int verifmortj2(Poke* joueur1[3], Poke* joueur2[3], int tour, Actif* actif, int 
             }
         }
     } else { // pour j vs ordi
-        if(joueur2[0]->pvactuel==0 && joueur2[1]->pvactuel==0 && joueur2[2]->pvactuel==0) {
+        if(joueur2[0]->pvactuel==0 && joueur2[1]->pvactuel==0 && joueur2[2]->pvactuel==0) {  // si tout les poke mort fin du combat
             printf("     %s est ko\n     Tout les pokemon du joueur 2 sont ko\n", joueur2[actif->actif2]->name);
             sleep(2);
             gagnantj1();
             return 2;
-        } else if(joueur2[actif->actif2]->pvactuel==0 ) {
+        } else if(joueur2[actif->actif2]->pvactuel==0 ) { // si poke actif meurt
             printf("     %s est ko\n", joueur2[actif->actif2]->name);
             sleep(2);
-            if((joueur2[0]->pvactuel==0 && joueur2[1]->pvactuel==0) ||  (joueur2[1]->pvactuel==0 && joueur2[2]->pvactuel==0) || (joueur2[0]->pvactuel==0 && joueur2[2]->pvactuel==0)) {
-                if(joueur2[0]->pvactuel==0 && joueur2[1]->pvactuel==0) {
+            if((joueur2[0]->pvactuel==0 && joueur2[1]->pvactuel==0) ||  (joueur2[1]->pvactuel==0 && joueur2[2]->pvactuel==0) || (joueur2[0]->pvactuel==0 && joueur2[2]->pvactuel==0)) { // 1 poke en vie
+                if(joueur2[0]->pvactuel==0 && joueur2[1]->pvactuel==0) { // en fonction du mort et de l'actif va choisir le bon chiffre
                     actionj2=7;
                 } else if (joueur2[1]->pvactuel==0 && joueur2[2]->pvactuel==0) {
                     actionj2=5;
@@ -1215,8 +1213,8 @@ int verifmortj2(Poke* joueur1[3], Poke* joueur2[3], int tour, Actif* actif, int 
                 }
                 changementcombatj2(joueur1, joueur2, tour, actionj2, actif);
                 return 1;         
-            } else {
-                if(joueur2[0]->pvactuel==0) {
+            } else { // si deux en vie
+                if(joueur2[0]->pvactuel==0) { // en fonction de l'actif va faire différent random
                     actionj2=rand()%2+6;
                 } else if (joueur2[1]->pvactuel==0) {
                     actionj2=(rand() % 2 == 0) ? 5 : 7;
@@ -1232,28 +1230,27 @@ int verifmortj2(Poke* joueur1[3], Poke* joueur2[3], int tour, Actif* actif, int 
     return 0;
 }
 
-// si un poke meurt doit return donc on renvoie 0 si aucun mort, on renvoie 1 si un mort et 2 si tous mort
-// penser a ajouter possibilité deux pokemon ko en meme temps egalité
+// ordre de priorité pour phase attaque : changement, att speciale et attaque
+// cas similaire dans phase combat donc une seule annotation pour comprehension globale
 
-
-int phaseattaque(Poke* joueur1[3], Poke* joueur2[3], int actionj1, int actionj2, int tour, Actif* actif, int choixmenu) {
-    int esquive1=rand()%101;
+int phaseattaque(Poke* joueur1[3], Poke* joueur2[3], int actionj1, int actionj2, int tour, Actif* actif, int choixmenu) { // la phase d'attaque
+    int esquive1=rand()%101; // l'esquive des joueur qui sert dans les fonctions
     int esquive2=rand()%101;
-    int reussite1=rand()%101;
+    int reussite1=rand()%101; // la réussite des joueurs qui sert dans es fonctions
     int reussite2=rand()%101;
     int ko=0;
-    if (actionj1 >= 5 && actionj2 >= 5) { // Changement et Changement  00
+    if (actionj1 >= 5 && actionj2 >= 5) { // Changement et Changement  
         changementcombatj1(joueur1, joueur2, tour, actionj1, actif);
         changementcombatj2(joueur1, joueur2, tour, actionj2, actif);
     }
-    else if (actionj1 >= 5 && actionj2 == 4) { // Changement vs Attaque Spéciale  00
+    else if (actionj1 >= 5 && actionj2 == 4) { // Changement vs Attaque Spéciale  
         changementcombatj1(joueur1, joueur2, tour, actionj1, actif);
-        if(joueur2[actif->actif2]->statut>=1 && joueur2[actif->actif2]->statut<=3) {
+        if(joueur2[actif->actif2]->statut>=1 && joueur2[actif->actif2]->statut<=3) { // si pokrmon para ne peut pas attaquer
             affichagePokepv(joueur1, joueur2, tour, actif);
             printf("     %s est paralysé il n'a pas pu attaquer\n", joueur2[actif->actif2]->name);
             sleep(2);
         } else {
-            attspecialej2(joueur1, joueur2, tour, actionj2, actif);
+            attspecialej2(joueur1, joueur2, tour, actionj2, actif); // sinon attaque et verif mort
             ko=verifmortj1(joueur1, joueur2, tour, actif);
             if(ko==1) {
                 return 1;
@@ -1261,8 +1258,8 @@ int phaseattaque(Poke* joueur1[3], Poke* joueur2[3], int actionj1, int actionj2,
                 return 2;
             }
         }
-        virus(joueur1, joueur2, tour, actif);
-        ko=verifmortj1(joueur1, joueur2, tour, actif);
+        virus(joueur1, joueur2, tour, actif); // verifie virus
+        ko=verifmortj1(joueur1, joueur2, tour, actif); // verifie les morts
         if(ko==2) {
             return 2;
         }
@@ -1271,23 +1268,23 @@ int phaseattaque(Poke* joueur1[3], Poke* joueur2[3], int actionj1, int actionj2,
             return 2;
         }
         return 0;
-    } else if (actionj1 >= 5 && actionj2<=3) { // Changement vs Attaque Normale 00
+    } else if (actionj1 >= 5 && actionj2<=3) { // Changement vs Attaque Normale 
         changementcombatj1(joueur1, joueur2, tour, actionj1, actif);
-        if(joueur2[actif->actif2]->statut>=1 && joueur2[actif->actif2]->statut<=3) {
+        if(joueur2[actif->actif2]->statut>=1 && joueur2[actif->actif2]->statut<=3) { // si para ne peut pas attaquer
             affichagePokepv(joueur1, joueur2, tour, actif);
             printf("     %s est paralysé il n'a pas pu attaquer\n", joueur2[actif->actif2]->name);
             sleep(2);
         } else {
-            attj2(joueur1, joueur2, actionj1, actionj2, tour, actif, esquive1, reussite2);
+            attj2(joueur1, joueur2, actionj1, actionj2, tour, actif, esquive1, reussite2); // attaque du joeur
             ko=verifmortj1(joueur1, joueur2, tour, actif);
-            if(ko==1) {
+            if(ko==1) { // verifie mort
                 return 1;
             } else if(ko==2) {
                 return 2;
             }
         }
-        virus(joueur1, joueur2, tour, actif);
-        ko=verifmortj1(joueur1, joueur2, tour, actif);
+        virus(joueur1, joueur2, tour, actif); // verifie virus
+        ko=verifmortj1(joueur1, joueur2, tour, actif); // verifie mort des 2 joueurs
         if(ko==2) {
             return 2;
         }
@@ -1296,7 +1293,7 @@ int phaseattaque(Poke* joueur1[3], Poke* joueur2[3], int actionj1, int actionj2,
             return 2;
         }
         return 0;
-    } else if (actionj1==4 && actionj2 >= 5) { // Attaque Spéciale vs Changement 00
+    } else if (actionj1==4 && actionj2 >= 5) { // Attaque Spéciale vs Changement 
         changementcombatj2(joueur1, joueur2, tour, actionj2, actif);
         if(joueur1[actif->actif1]->statut>=1 && joueur1[actif->actif1]->statut<=3) {
             affichagePokepv(joueur1, joueur2, tour, actif);
@@ -1321,7 +1318,7 @@ int phaseattaque(Poke* joueur1[3], Poke* joueur2[3], int actionj1, int actionj2,
             return 2;
         }
         return 0;
-    } else if (actionj1<=3 && actionj2 >= 5) {  // Attaque Normale vs Changement 00
+    } else if (actionj1<=3 && actionj2 >= 5) {  // Attaque Normale vs Changement 
         changementcombatj2(joueur1, joueur2, tour, actionj2, actif);
         if(joueur1[actif->actif1]->statut>=1 && joueur1[actif->actif1]->statut<=3) {
             affichagePokepv(joueur1, joueur2, tour, actif);
@@ -1346,12 +1343,12 @@ int phaseattaque(Poke* joueur1[3], Poke* joueur2[3], int actionj1, int actionj2,
             return 2;
         }
         return 0;
-    } else if (actionj1 == 4 && actionj2 == 4) { // Attaque Spéciale vs Attaque Spéciale doit rajouté
-        int randompremier=0;
+    } else if (actionj1 == 4 && actionj2 == 4) { // Attaque Spéciale vs Attaque Spéciale 
+        int randompremier=0; // pose un entier random qui sert si les poke ont la meme vitesse
         if(joueur1[actif->actif1]->vit==joueur2[actif->actif2]->vit) { 
-            randompremier=rand()%2+1;
+            randompremier=rand()%2+1; // fait un random pour savoir qui attaque en premier
         }
-        if(joueur1[actif->actif1]->vit > joueur2[actif->actif2]->vit || randompremier==1) {
+        if(joueur1[actif->actif1]->vit > joueur2[actif->actif2]->vit || randompremier==1) { // si j1 plus rapide ou dispose du random en sa faveur
             if(joueur1[actif->actif1]->statut>=1 && joueur1[actif->actif1]->statut<=3) {
                 affichagePokepv(joueur1, joueur2, tour, actif);
                 printf("     %s est paralysé il n'a pas pu attaquer\n", joueur1[actif->actif1]->name);
@@ -1378,7 +1375,7 @@ int phaseattaque(Poke* joueur1[3], Poke* joueur2[3], int actionj1, int actionj2,
                     return 2;
                 }
             }
-        } else if(joueur1[actif->actif1]->vit < joueur2[actif->actif2]->vit || randompremier==2) {
+        } else if(joueur1[actif->actif1]->vit < joueur2[actif->actif2]->vit || randompremier==2) { // si j2 plus rapide ou dispose du random en sa faveur
             if(joueur2[actif->actif2]->statut>=1 && joueur2[actif->actif2]->statut<=3) {
                 affichagePokepv(joueur1, joueur2, tour, actif);
                 printf("     %s est paralysé il n'a pas pu attaquer\n", joueur2[actif->actif2]->name);
@@ -1416,8 +1413,8 @@ int phaseattaque(Poke* joueur1[3], Poke* joueur2[3], int actionj1, int actionj2,
             return 2;
         }
         return 0;
-    } else if (actionj1 == 4 && actionj2 <= 3) { // Attaque Spéciale vs Attaque Normale 00 doit rajouté
-        if(joueur1[actif->actif1]->statut>=1 && joueur1[actif->actif1]->statut<=3) {
+    } else if (actionj1 == 4 && actionj2 <= 3) { // Attaque Spéciale vs Attaque Normale 
+        if(joueur1[actif->actif1]->statut>=1 && joueur1[actif->actif1]->statut<=3) { 
             affichagePokepv(joueur1, joueur2, tour, actif);
             printf("     %s est paralysé il n'a pas pu attaquer\n", joueur1[actif->actif1]->name);
             sleep(2);
@@ -1430,7 +1427,7 @@ int phaseattaque(Poke* joueur1[3], Poke* joueur2[3], int actionj1, int actionj2,
                 return 2;
             }
         }
-        if(joueur2[actif->actif2]->statut>=1 && joueur2[actif->actif2]->statut<=3) {
+        if(joueur2[actif->actif2]->statut>=1 && joueur2[actif->actif2]->statut<=3) { 
             affichagePokepv(joueur1, joueur2, tour, actif);
             printf("     %s est paralysé il n'a pas pu attaquer\n", joueur2[actif->actif2]->name);
             sleep(2);
@@ -1453,8 +1450,8 @@ int phaseattaque(Poke* joueur1[3], Poke* joueur2[3], int actionj1, int actionj2,
             return 2;
         }
         return 0;
-    } else if (actionj1 <=3 && actionj2 == 4) { // Attaque Normale vs Attaque Spéciale 00 doit rajouté
-        if(joueur2[actif->actif2]->statut>=1 && joueur2[actif->actif2]->statut<=3) {
+    } else if (actionj1 <=3 && actionj2 == 4) { // Attaque Normale vs Attaque Spéciale 
+        if(joueur2[actif->actif2]->statut>=1 && joueur2[actif->actif2]->statut<=3) { 
             affichagePokepv(joueur1, joueur2, tour, actif);
             printf("     %s est paralysé il n'a pas pu attaquer\n", joueur2[actif->actif2]->name);
             sleep(2);
@@ -1467,7 +1464,7 @@ int phaseattaque(Poke* joueur1[3], Poke* joueur2[3], int actionj1, int actionj2,
                 return 2;
             }
         }
-        if(joueur1[actif->actif1]->statut>=1 && joueur1[actif->actif1]->statut<=3) {
+        if(joueur1[actif->actif1]->statut>=1 && joueur1[actif->actif1]->statut<=3) { 
             affichagePokepv(joueur1, joueur2, tour, actif);
             printf("     %s est paralysé il n'a pas pu attaquer\n", joueur1[actif->actif1]->name);
             sleep(2);
@@ -1490,12 +1487,12 @@ int phaseattaque(Poke* joueur1[3], Poke* joueur2[3], int actionj1, int actionj2,
             return 2;
         }
         return 0; 
-    } else if (actionj1 <= 3 && actionj2 <= 3) { //Attaque Normale vs Attaque Normale 00 doit rajouté
-        int randompremier=0;
+    } else if (actionj1 <= 3 && actionj2 <= 3) { //Attaque Normale vs Attaque Normale 
+        int randompremier=0; // pose un entier random qui sert si les poke ont la meme vitesse
         if(joueur1[actif->actif1]->vit==joueur2[actif->actif2]->vit) { 
-            randompremier=rand()%2+1;
+            randompremier=rand()%2+1; // fait un random pour savoir qui att en premier
         }
-        if(joueur1[actif->actif1]->vit > joueur2[actif->actif2]->vit || randompremier==1) {
+        if(joueur1[actif->actif1]->vit > joueur2[actif->actif2]->vit || randompremier==1) { // si j1 plus rapide ou dispose du random en sa faveur
             if(joueur1[actif->actif1]->statut>=1 && joueur1[actif->actif1]->statut<=3) {
                 affichagePokepv(joueur1, joueur2, tour, actif);
                 printf("     %s est paralysé il n'a pas pu attaquer\n", joueur1[actif->actif1]->name);
@@ -1522,7 +1519,7 @@ int phaseattaque(Poke* joueur1[3], Poke* joueur2[3], int actionj1, int actionj2,
                     return 2;
                 }
             }
-        } else if(joueur1[actif->actif1]->vit < joueur2[actif->actif2]->vit || randompremier==2) {
+        } else if(joueur1[actif->actif1]->vit < joueur2[actif->actif2]->vit || randompremier==2) { // si j2 plus rapide ou dispose du random en sa faveur
             if(joueur2[actif->actif2]->statut>=1 && joueur2[actif->actif2]->statut<=3) {
                 affichagePokepv(joueur1, joueur2, tour, actif);
                 printf("     %s est paralysé il n'a pas pu attaquer\n", joueur2[actif->actif2]->name);
@@ -1566,20 +1563,20 @@ int phaseattaque(Poke* joueur1[3], Poke* joueur2[3], int actionj1, int actionj2,
 
 
 
-int tourn_jvsj(Poke* joueur1[3], Poke* joueur2[3], int tour, Actif* actif, int choixmenu) { // si pokemon ko retourne 1 et met fin a la boucle infini
+int tourn_jvsj(Poke* joueur1[3], Poke* joueur2[3], int tour, Actif* actif, int choixmenu) { // si tout les pokemons ko d'un joueur retourne 2 et met fin a la boucle infini
     int ko;
     int actionj1=choixactionj1(joueur1, joueur2, tour, actif); // choix action j1
     int actionj2=choixactionj2(joueur1, joueur2, tour, actif); // choix action j2
-    desactiverSaisie();
-    ko=phaseattaque(joueur1, joueur2, actionj1, actionj2, tour, actif, choixmenu);
+    desactiverSaisie();  // desactive saisi et la reactive ap la phase combat
+    ko=phaseattaque(joueur1, joueur2, actionj1, actionj2, tour, actif, choixmenu); // va executer les choix
     activerSaisie();
     if(joueur1[actif->actif1]->attspe->tempsrechargeact<joueur1[actif->actif1]->attspe->tempsrecharge) { // recharge att spe sauf si deja a 100%
         joueur1[actif->actif1]->attspe->tempsrechargeact+=1;
     }
-    if(joueur2[actif->actif2]->attspe->tempsrechargeact<joueur2[actif->actif2]->attspe->tempsrecharge) { // recharge att spe sauf si deja a 100%}
+    if(joueur2[actif->actif2]->attspe->tempsrechargeact<joueur2[actif->actif2]->attspe->tempsrecharge) {
         joueur2[actif->actif2]->attspe->tempsrechargeact+=1;
     }
-    if(joueur1[actif->actif1]->statut>=1 && joueur1[actif->actif1]->statut<=3) {
+    if(joueur1[actif->actif1]->statut>=1 && joueur1[actif->actif1]->statut<=3) { // baisse le nombre de tour si paralysé
         joueur1[actif->actif1]->statut-=1;
     }
     if(joueur2[actif->actif2]->statut>=1 && joueur2[actif->actif2]->statut<=3) {
@@ -1597,7 +1594,7 @@ int tourn_jvsordi(Poke* joueur1[3], Poke* joueur2[3], int tour, Actif* actif, in
     for (int i = 0; i < 3; i++) { // Compter le nombre de Pokémon encore en vie
         if (joueur2[i]->pvactuel != 0) nb_vivants++;
     }
-    if(joueur2[actif->actif2]->attspe->tempsrechargeact==joueur2[actif->actif2]->attspe->tempsrecharge) {
+    if(joueur2[actif->actif2]->attspe->tempsrechargeact==joueur2[actif->actif2]->attspe->tempsrecharge) { // si attspé chargé l'ordi l utilise
             actionj2=4;
     } else {
         if(nb_vivants == 3) { // si tout les poke ordi en vie
@@ -1605,11 +1602,11 @@ int tourn_jvsordi(Poke* joueur1[3], Poke* joueur2[3], int tour, Actif* actif, in
                 do {
                     actionj2 = rand() % 7;
                 } while (actionj2 == 4);
-            } else if(actif->actif2==1) { // si actif 1 choisi att ou poke 0 ou 2
+            } else if(actif->actif2==1) { // si actif 1 choisi att entre 0 et 3 ou poke 0 ou 2
                 do {
                     actionj2 = rand() % 8;
                 } while (actionj2 == 6 || actionj2 == 4);
-            } else { // si actif 0 choisi att ou change vers poke 1 ou 2
+            } else { // si actif 0 choisi att entre 0 et 3 ou change vers poke 1 ou 2
                 do {
                     actionj2 = rand() % 8;
                 } while (actionj2 == 4 || actionj2 == 5);
@@ -1628,23 +1625,23 @@ int tourn_jvsordi(Poke* joueur1[3], Poke* joueur2[3], int tour, Actif* actif, in
                     actionj2 = rand() % 7;
                 } while (actionj2 == 4 || actionj2 == 5);
             }
-        } else {
+        } else { // si un seul en vie choisi juste une att
             actionj2=rand()%4;
         }
     }
-    desactiverSaisie();
-    ko=phaseattaque(joueur1, joueur2, actionj1, actionj2, tour, actif, choixmenu);
+    desactiverSaisie(); // desactive saisi et la reactive ap la phase combat
+    ko=phaseattaque(joueur1, joueur2, actionj1, actionj2, tour, actif, choixmenu); // va executer les choix
     activerSaisie();
     if(joueur1[actif->actif1]->attspe->tempsrechargeact<joueur1[actif->actif1]->attspe->tempsrecharge) { // recharge att spe sauf si deja a 100%
         joueur1[actif->actif1]->attspe->tempsrechargeact+=1;
     }
-    if(joueur2[actif->actif2]->attspe->tempsrechargeact<joueur2[actif->actif2]->attspe->tempsrecharge) { // recharge att spe sauf si deja a 100%
+    if(joueur2[actif->actif2]->attspe->tempsrechargeact<joueur2[actif->actif2]->attspe->tempsrecharge) { 
         joueur2[actif->actif2]->attspe->tempsrechargeact+=1;
     }
-    if(joueur1[actif->actif1]->statut>=1 && joueur1[actif->actif1]->statut<=3) {
+    if(joueur1[actif->actif1]->statut>=1 && joueur1[actif->actif1]->statut<=3) { // baisse le nombre de tour si paralysé
         joueur1[actif->actif1]->statut-=1;
     }
-    if(joueur2[actif->actif2]->statut>=1 && joueur2[actif->actif2]->statut<=3) {
+    if(joueur2[actif->actif2]->statut>=1 && joueur2[actif->actif2]->statut<=3) {  
         joueur2[actif->actif2]->statut-=1;
     }
     return ko;

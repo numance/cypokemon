@@ -59,7 +59,7 @@ void aide() { // affiche menu aide et infos pour jouer
     "et même vaincre l'ordinateur en mode difficile.\n\n"
 
     "Pour retourner à l'accueil : appuyez sur entrée\n");
-    int touche; // quand appuie sur la touche entréé retourne sur
+    int touche; // quand appuie sur la touche entréé retourne sur menu principal
     while(1) {
         touche = getch();
             if(touche == ENTER) {

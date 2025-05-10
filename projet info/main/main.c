@@ -21,7 +21,7 @@
 int main() {
     maximizeTerminal(); // met le terminal en grand ecran si ce n'est pas deja le cas
     int choixmenu=menu(); // on choisit le type de combat qu on veut
-    if(choixmenu==0) {
+    if(choixmenu==0) { // si appuie sur quitter met fin au programme
         system("clear");
         return 0;
     }
@@ -31,5 +31,3 @@ int main() {
     return 0;
 }
 
-
-// prblm avec touche entréé saisi bcp de fois a la suite 
